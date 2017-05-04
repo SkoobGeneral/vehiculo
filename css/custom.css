@@ -1,3 +1,15 @@
+.btn-link, .btn-link:link, .btn-link:hover, .btn-link:active, .btn-link:visited {
+  color: #bdbdbd;
+}
+.btn-link:hover.backward {
+ color: red; 
+}
+.btn-link:hover.forward {
+ color: #78bd2e; 
+}
+.btn-link:hover.closemodal {
+ color: #000;
+}
 .modal-title {
   text-align: center;
 }

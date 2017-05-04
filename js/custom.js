@@ -45,41 +45,150 @@
       }
       */
 
+      $.post('includes/getUser.php', function (response) {
+        $(".username").html(response);
+      });
+      $.post('includes/getVehicle.php', function (response) {
+        $(".vehiclename").text(response);
+      });
+      $.post('includes/getLastFuelEntries.php', function (response) {
+        $(".fueltable").html(response);
+      });
+
+      function lastfuelentriesmodal(purchase, odometer, fueltype, fuelprice, fuelamount, purchasedate, place, slidenumber, totalslides) {
+        $('#lastfuelentriespurchase').text('$'+purchase+' Pesos');
+        $('#lastfuelentriesodometer').text(odometer+' Km');
+        $('#lastfuelentriesfueltype').text(fueltype);
+        $('#lastfuelentriesfuelprice').text('$'+fuelprice+' Pesos');
+        $('#lastfuelentriesfuelamount').text('$'+fuelamount+' Galones');
+        $('#lastfuelentriespurchasedate').text(purchasedate);
+        $('#lastfuelentriesplace').text(place);
+        dashboardfueltotalslides = totalslides;
+        dashboardfuelslidenumber = slidenumber;
+        if (totalslides == 1){
+          $('#dashboardfuelbackward').attr('disabled',true);
+          $('#dashboardfuelforward').attr('disabled',true);
+        }
+        else if (totalslides == 2){
+          if (slidenumber == 1){
+            $('#dashboardfuelbackward').attr('disabled',false);
+            $('#dashboardfuelforward').attr('disabled',true);
+          }
+          else if (slidenumber == 2){
+            $('#dashboardfuelbackward').attr('disabled',true);
+            $('#dashboardfuelforward').attr('disabled',false);
+          }
+        }
+        else if (totalslides == 3){
+          if (slidenumber == 1){
+            $('#dashboardfuelbackward').attr('disabled',false);
+            $('#dashboardfuelforward').attr('disabled',true);
+          }
+          else if (slidenumber == 2){
+            $('#dashboardfuelbackward').attr('disabled',false);
+            $('#dashboardfuelforward').attr('disabled',false);
+          }
+          else if (slidenumber == 3){
+            $('#dashboardfuelbackward').attr('disabled',true);
+            $('#dashboardfuelforward').attr('disabled',false);
+          }
+        } else if (totalslides == 4){
+          if (slidenumber == 1){
+            $('#dashboardfuelbackward').attr('disabled',false);
+            $('#dashboardfuelforward').attr('disabled',true);
+          }
+          else if (slidenumber == 2){
+            $('#dashboardfuelbackward').attr('disabled',false);
+            $('#dashboardfuelforward').attr('disabled',false);
+          }
+          else if (slidenumber == 3){
+            $('#dashboardfuelbackward').attr('disabled',false);
+            $('#dashboardfuelforward').attr('disabled',false);
+          }
+          else if (slidenumber == 4){
+            $('#dashboardfuelbackward').attr('disabled',true);
+            $('#dashboardfuelforward').attr('disabled',false);
+          }
+        }
+      }
+
+      $('#dashboardfuelbackward').click(function(){
+        if (dashboardfueltotalslides == 2){
+          $('#fuelmore-modal').hide();
+          $('body').find('#dashboardfuelentrieslink2').trigger('click');
+          setTimeout(function () {$('#fuelmore-modal').modal('show');},600);
+          }
+          else if (dashboardfueltotalslides == 3) {
+            if (dashboardfuelslidenumber == 1) {
+              $('#fuelmore-modal').hide();
+              $('body').find('#dashboardfuelentrieslink2').trigger('click');
+              setTimeout(function () {$('#fuelmore-modal').modal('show');},600);
+            }
+            else if (dashboardfuelslidenumber == 2) {
+              $('#fuelmore-modal').hide();
+              $('body').find('#dashboardfuelentrieslink3').trigger('click');
+              setTimeout(function () {$('#fuelmore-modal').modal('show');},600);
+            }
+          }
+          else if (dashboardfueltotalslides == 4) {
+            if (dashboardfuelslidenumber == 1) {
+              $('#fuelmore-modal').hide();
+              $('body').find('#dashboardfuelentrieslink2').trigger('click');
+              setTimeout(function () {$('#fuelmore-modal').modal('show');},600);
+            }
+            else if (dashboardfuelslidenumber == 2) {
+              $('#fuelmore-modal').hide();
+              $('body').find('#dashboardfuelentrieslink3').trigger('click');
+              setTimeout(function () {$('#fuelmore-modal').modal('show');},600);
+            }
+            else if (dashboardfuelslidenumber == 3) {
+              $('#fuelmore-modal').hide();
+              $('body').find('#dashboardfuelentrieslink4').trigger('click');
+              setTimeout(function () {$('#fuelmore-modal').modal('show');},600);
+            }
+          }
+      })
+
+      $('#dashboardfuelforward').click(function(){
+        if (dashboardfueltotalslides == 2){
+          $('#fuelmore-modal').hide();
+          $('body').find('#dashboardfuelentrieslink1').trigger('click');
+          setTimeout(function () {$('#fuelmore-modal').modal('show');},600);
+          }
+          else if (dashboardfueltotalslides == 3) {
+            if (dashboardfuelslidenumber == 2) {
+              $('#fuelmore-modal').hide();
+              $('body').find('#dashboardfuelentrieslink1').trigger('click');
+              setTimeout(function () {$('#fuelmore-modal').modal('show');},600);
+            }
+            else if (dashboardfuelslidenumber == 3) {
+              $('#fuelmore-modal').hide();
+              $('body').find('#dashboardfuelentrieslink2').trigger('click');
+              setTimeout(function () {$('#fuelmore-modal').modal('show');},600);
+            }
+          }
+          else if (dashboardfueltotalslides == 4) {
+            if (dashboardfuelslidenumber == 2) {
+              $('#fuelmore-modal').hide();
+              $('body').find('#dashboardfuelentrieslink1').trigger('click');
+              setTimeout(function () {$('#fuelmore-modal').modal('show');},600);
+            }
+            else if (dashboardfuelslidenumber == 3) {
+              $('#fuelmore-modal').hide();
+              $('body').find('#dashboardfuelentrieslink2').trigger('click');
+              setTimeout(function () {$('#fuelmore-modal').modal('show');},600);
+            }
+            else if (dashboardfuelslidenumber == 4) {
+              $('#fuelmore-modal').hide();
+              $('body').find('#dashboardfuelentrieslink3').trigger('click');
+              setTimeout(function () {$('#fuelmore-modal').modal('show');},600);
+            }
+          }
+      })
+
     $(document).keyup(function(e) {
     	if (e.keyCode == 27) {
-        	$('#terminosycondiciones').hide();
-          $('#terminosycondiciones').modal('hide');
-          if ($('#modalContacto0').is(":visible")){
-            $('#contacto').hide();
-            $('#contacto').modal('hide');
-          }
-          else if ($('#modalContacto1').is(":visible")){
-            $('#btn-anterior-contacto').click();
-          }
-          else if ($('#modalContacto2').is(":visible")){
-            $('#btn-anterior2-contacto').click();
-          }
-          if ($('#popupSimulador').is(":hidden")){
-            $('#closeTabla2').click();
-          }
-          if ($('#popupSimuladorReserva').is(":visible")){
-            $('#closeModal4').click();
-          }
-          else{
-            $('#popupSimulador').hide();
-            $('#popupSimulador').modal('hide');
-            $('#popupSimuladorReserva').hide();
-            $('#popupSimuladorReserva').modal('hide');
-            $('#errorModal').hide();
-            $('#errorModal').modal('hide');
-            $('#successModal').hide();
-            $('#successModal').modal('hide');
-            //$('body').css('-webkit-overflow-scrolling','touch !important').css('overflow','auto !important').css('height','100% !important');
-            //$('html').css('-webkit-overflow-scrolling','touch !important').css('overflow','auto !important').css('height','100% !important');
-          }
-          if ($('#popupSimuladorReservaCustom').is(":visible")){
-            $('#closeModal5').click();
-          }
+          $('#fuelmore-modal').modal('hide');
     	}
 	});
 
@@ -152,15 +261,12 @@
     //
 
 
-      $.post('includes/getUser.php', function (response) {
-        $(".username").html(response);
-      });
-      $.post('includes/getVehicle.php', function (response) {
-        $(".vehiclename").text(response);
-      });
-      $.post('includes/getLastFuelEntries.php', function (response) {
-        $(".fueltable").html(response);
-      });
+      
+
+
+
+
+
 
       function calculate(){
         $('#outputCelebracion').text(tipoCelebracionTexto);

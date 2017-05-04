@@ -278,11 +278,10 @@
                     <section class="section">
                         <div class="row sameheight-container">
                             <div class="col col-xs-12 col-sm-12 col-md-6 col-xl-5 stats-col">
-                                <div class="card sameheight-item stats" data-exclude="xs">
+                                <div class="card sameheight-itemx stats" data-exclude="xs">
                                     <div class="card-block">
                                         <div class="title-block">
                                             <h4 class="title"> Combustible </h4>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fuelmore-modal">Launch demo modal</button>
                                             <p class="title-description"> <i class="fa fa-beer"></i> Entradas Recientes </p>
                                         </div>
                                         <div class="row row-sm stats-container">
@@ -1111,27 +1110,31 @@
                                 <div class="row row-smx stats-container">
                                     <div class="col-xs-12 col-sm-6" style="text-align: center;">
                                         <h6>Valor de Compra:</h6>
-                                        <h4>$60,000 Pesos</h4>
+                                        <h4 id="lastfuelentriespurchase" style="color:#78bd2e;">$</h4>
                                         <h6>Odómetro:</h6>
-                                        <h4>133.332 Km</h4>
+                                        <h4 id="lastfuelentriesodometer" style="color:#ffa500;">- Km</h4>
                                         <h6>Tipo de Combustible:</h6>
-                                        <h5>Gasolina Extra</h5>
+                                        <h6 id="lastfuelentriesfueltype" style="color:#339cc3;">-</h6>
                                     </div>
                                     <div class="col-xs-12 col-sm-6" style="text-align: center;">
                                         <h6>Precio del Galón:</h6>
-                                        <h4>$10,490</h4>
+                                        <h4 id="lastfuelentriesfuelprice" style="color:red;">$</h4>
                                         <h6>Volúmen:</h6>
-                                        <h4>4.691 Galones</h4>
+                                        <h4 id="lastfuelentriesfuelamount" style="color:#78bd2e;">- Galones</h4>
                                         <h6>Fecha:</h6>
-                                        <h5>2017-01-16 13:00:00</h5>
+                                        <h6 id="lastfuelentriespurchasedate" style="color:#339cc3;">2017-01-16 13:00:00</h6>
                                     </div>
                                     <div class="col-xs-12 col-sm-12" style="text-align: center;">
                                         <h6>Lugar:</h6>
-                                        <h5>Mobil - Km 17, Sallida Soacha Melgar</h5>
+                                        <h6 id="lastfuelentriesplace" style="color:#904C00;">-</h6>
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary">Insert Selected</button> </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-link pull-left backward" id="dashboardfuelbackward"><i class="fa fa-arrow-down"></i></button>
+                                <button type="button" class="btn btn-link pull-left forward" id="dashboardfuelforward"><i class="fa fa-arrow-up"></i></button>
+                                <button type="button" class="btn btn-link closemodal" data-dismiss="modal">Cerrar</button>
+                            </div>
                         </div>
                         <!-- /.modal-content -->
                     </div>
