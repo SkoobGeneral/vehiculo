@@ -32,7 +32,7 @@
     <body>
         <div class="main-wrapper">
             <div class="app header-fixed sidebar-fixed" id="app">
-                <header class="header">
+                <header class="header" style="position: fixed;">
                     <div class="header-block header-block-collapse hidden-lg-up"> <button class="collapse-btn" id="sidebar-collapse-btn">
     			<i class="fa fa-bars"></i>
     		</button> </div>
@@ -109,7 +109,7 @@
                         </ul>
                     </div>
                 </header>
-                <aside class="sidebar">
+                <aside class="sidebar" style="position: fixed;">
                     <div class="sidebar-container">
                         <div class="sidebar-header">
                             <div class="brand">
@@ -282,7 +282,8 @@
                                     <div class="card-block">
                                         <div class="title-block">
                                             <h4 class="title"> Combustible </h4>
-                                            <p class="title-description"> <i class="fa fa-industry"></i> Entradas recientes </p>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fuelmore-modal">Launch demo modal</button>
+                                            <p class="title-description"> <i class="fa fa-beer"></i> Entradas Recientes </p>
                                         </div>
                                         <div class="row row-sm stats-container">
 
@@ -1088,6 +1089,45 @@
                                                 </form>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary">Insert Selected</button> </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <div class="modal fade" id="fuelmore-modal">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                                <h4 class="modal-title"><i class="fa fa-beer"></i> Entrada Reciente </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row row-smx stats-container">
+                                    <div class="col-xs-12 col-sm-6" style="text-align: center;">
+                                        <h6>Valor de Compra:</h6>
+                                        <h4>$60,000 Pesos</h4>
+                                        <h6>Odómetro:</h6>
+                                        <h4>133.332 Km</h4>
+                                        <h6>Tipo de Combustible:</h6>
+                                        <h5>Gasolina Extra</h5>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6" style="text-align: center;">
+                                        <h6>Precio del Galón:</h6>
+                                        <h4>$10,490</h4>
+                                        <h6>Volúmen:</h6>
+                                        <h4>4.691 Galones</h4>
+                                        <h6>Fecha:</h6>
+                                        <h5>2017-01-16 13:00:00</h5>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12" style="text-align: center;">
+                                        <h6>Lugar:</h6>
+                                        <h5>Mobil - Km 17, Sallida Soacha Melgar</h5>
                                     </div>
                                 </div>
                             </div>
