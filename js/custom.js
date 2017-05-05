@@ -52,7 +52,9 @@
         $(".vehiclename").text(response);
       });
       $.post('includes/getLastFuelEntries.php', function (response) {
-        $(".fueltable").html(response);
+        
+        $("#lastfuelentriesloading").fadeOut(500);
+        setTimeout(function(){$(".fueltable").html(response).fadeIn('slow')},500)
       });
 
       function lastfuelentriesmodal(purchase, odometer, fueltype, fuelprice, fuelamount, purchasedate, place, slidenumber, totalslides) {
@@ -185,6 +187,35 @@
             }
           }
       })
+
+      $.post('includes/getFuelEntries.php', function (response) {
+            $("#fueltablebodysection").html(response);
+            $('#fueltablefootable').footable({
+                "paging": {
+                    "enabled": true,
+                    "size": 4,
+                    "countFormat": "{CP} de {TP}"
+                },
+                "filtering": {
+                    "enabled": true,
+                    "delay": 1,
+                    "placeholder": "Buscar..."
+                },
+                "sorting": {
+                    "enabled": true
+                },
+                "empty": "No hay Registros."
+            });
+         });
+
+      function dashboardsection () {
+         $('#dashboardsection').show();
+         $('#dashboardsectionlink').addClass('active');
+      }
+      function fuelsection () {
+         $('#fuelsection').show();
+         $('#fuelsectionlink').addClass('active');
+      }
 
     $(document).keyup(function(e) {
     	if (e.keyCode == 27) {

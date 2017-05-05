@@ -1,3 +1,9 @@
+.xnotifications a:hover{
+  color: #339cc3;
+}
+.header .header-block-nav .notifications.new .counter {
+    color: rgba(255,0,0,0.7);
+}
 .btn-link, .btn-link:link, .btn-link:hover, .btn-link:active, .btn-link:visited {
   color: #bdbdbd;
 }
@@ -29,5 +35,18 @@
 @media (max-width: 767px){
   .title-description {
       display: block;
+  }
+
+}
+@media (max-width: 818px){
+  #fueltablefootable {
+    font-size: 90%;
+  }
+}
+@media (max-width: 313px){
+  #fueltablefootable {
+    font-size: 70%;
+    max-width: 313px;
+    overflow: scroll;
   }
 }
