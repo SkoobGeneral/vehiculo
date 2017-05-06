@@ -44,6 +44,15 @@
         player.stopVideo();
       }
       */
+      $('#actionbutton').fadeIn();
+      //Ocultar botón cuando hay scroll
+      /*$(window).scroll(function(){
+        if ($(this).scrollTop() > 300) {
+          $('.scrollToTop').fadeIn();
+        } else {
+          $('.scrollToTop').fadeOut();
+        }
+    });*/
 
       $.post('includes/getUser.php', function (response) {
         $(".username").html(response);
@@ -58,13 +67,14 @@
       });
 
       function lastfuelentriesmodal(purchase, odometer, fueltype, fuelprice, fuelamount, purchasedate, place, slidenumber, totalslides) {
-        $('#lastfuelentriespurchase').text('$'+purchase+' Pesos');
-        $('#lastfuelentriesodometer').text(odometer+' Km');
+        $('#lastfuelentriespurchase').text('$'+purchase);
+        $('#lastfuelentriesodometer').text(odometer);
         $('#lastfuelentriesfueltype').text(fueltype);
-        $('#lastfuelentriesfuelprice').text('$'+fuelprice+' Pesos');
-        $('#lastfuelentriesfuelamount').text('$'+fuelamount+' Galones');
+        $('#lastfuelentriesfuelprice').text('$'+fuelprice);
+        $('#lastfuelentriesfuelamount').text('$'+fuelamount);
         $('#lastfuelentriespurchasedate').text(purchasedate);
         $('#lastfuelentriesplace').text(place);
+        $('#dashboardfuelslidenumber').text(slidenumber+" de "+totalslides);
         dashboardfueltotalslides = totalslides;
         dashboardfuelslidenumber = slidenumber;
         if (totalslides == 1){
@@ -193,7 +203,7 @@
             $('#fueltablefootable').footable({
                 "paging": {
                     "enabled": true,
-                    "size": 4,
+                    "size": 10,
                     "countFormat": "{CP} de {TP}"
                 },
                 "filtering": {

@@ -32,6 +32,13 @@
 
     <body>
         <div class="main-wrapper">
+            <div style="position: absolute;">
+                <a href="#" data-toggle="dropdown" role="button" id="actionbutton"><i class="fa fa-plus" style="position: absolute; top: 17px; right: 19px;"></i></a>
+                <div class="dropdown-menu action-dropdown-menu" aria-labelledby="dropdownMenu1">
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#fuel-modal"> <i class="fa fa-plus icon"></i> Combustible </a>
+                <div class="dropdown-divider"></div>
+            </div>
+            </div>
             <div class="app header-fixed sidebar-fixed" id="app">
                 <header class="header" style="position: fixed;">
                     <div class="header-block header-block-collapse hidden-lg-up"> <button class="collapse-btn" id="sidebar-collapse-btn">
@@ -131,15 +138,27 @@
                                 <li>
                                     <a href=""> <i class="fa fa-cog"></i> Mantenimiento <i class="fa arrow"></i> </a>
                                     <ul>
-                                        <li> <a href="items-list.html">
-    								Mecánica
-    							</a> </li>
-                                        <li> <a href="item-editor.html">
-    								Frenos
-    							</a> </li>
+                                        <li> <a href="#"> <i class="fa fa-long-arrow-right"></i> Lavado</a> </li>
+                                        <li> <a href="#"> <i class="fa fa-long-arrow-right"></i> Mecánica</a> </li>
+                                        <li> <a href="#"> <i class="fa fa-long-arrow-right"></i> Frenos</a></li>
+                                        <li> <a href="#"> <i class="fa fa-long-arrow-right"></i> Llantas</a></li>
+                                        <li> <a href="#"> <i class="fa fa-long-arrow-right"></i> Aceite y Filtros</a></li>
+                                        <li> <a href="#"> <i class="fa fa-long-arrow-right"></i> Electricidad</a></li>
+                                        <li> <a href="#"> <i class="fa fa-long-arrow-right"></i> Pintura</a></li>>
                                     </ul>
                                 </li>
                                 <!--
+                                <li>
+                                    <a href=""> <i class="fa fa-cog"></i> Mantenimiento <i class="fa arrow"></i> </a>
+                                    <ul>
+                                        <li> <a href="items-list.html">
+                                    Mecánica
+                                </a> </li>
+                                        <li> <a href="item-editor.html">
+                                    Frenos
+                                </a> </li>
+                                    </ul>
+                                </li>
                                 <li>
                                     <a href=""> <i class="fa fa-bar-chart"></i> Charts <i class="fa arrow"></i> </a>
                                     <ul>
@@ -288,7 +307,7 @@
                                     <div class="card-block">
                                         <div class="title-block">
                                             <h4 class="title"> Combustible </h4>
-                                            <p class="title-description"> <i class="fa fa-beer"></i> Entradas Recientes </p>
+                                            <p class="title-description"> <i class="fa fa-beer"></i> Últimos registros </p>
                                         </div>
                                         <div class="row row-sm stats-container">
                                             <div style="text-align: center; background: white;" id="lastfuelentriesloading"><i class="fa fa-spinner fa-spin fa-3x"></i></div>
@@ -391,19 +410,19 @@
                                     <div class="card-block">
                                         <div class="title-block">
                                             <h4 class="title"> Combustible </h4>
-                                            <p class="title-description"> <i class="fa fa-beer"></i> Todas las entradas </p>
+                                            <p class="title-description"> <i class="fa fa-beer"></i> Todas los registros </p>
                                         </div>
                                         <div class="row row-sm stats-container">
 
                                             <div class="col-xs-12 col-sm-12 stat-col" style="overflow: scroll; min-height: 300px;">
-                                            <table class="table footable table-bordered table-condensed table-striped" style="text-align: center;" id="fueltablefootable" data-filter-min="4">
+                                            <table class="table footable table-bordered table-condensed table-striped" style="text-align: center;" id="fueltablefootable" data-filter-min="3">
                                                 <thead>
                                                     <tr style="text-align: center;">
-                                                        <th data-title="Valor de Compra" style="text-align: center;">Valor de <br>Compra</th>
-                                                        <th data-title="Odómetro (km)" style="text-align: center;">Odómetro<br>(km)</th>
-                                                        <th data-title="Tipo de Combustible" data-breakpoints="all" style="text-align: center;">Tipo de <br>Combustible</th>
-                                                        <th data-title="Precio de Galón" data-breakpoints="sm" style="text-align: center;">Precio de <br>Galón ($/gl)</th>
-                                                        <th data-title="Volúmen" data-breakpoints="xs" style="text-align: center;">Volumen (gl)</th>
+                                                        <th data-title="Compra neta ($)" style="text-align: center;"></th>
+                                                        <th data-title="Odómetro (km)" style="text-align: center;"></th>
+                                                        <th data-title="Tipo de Combustible" data-breakpoints="all" style="text-align: center;"></th>
+                                                        <th data-title="Precio de galón ($/gl)" data-breakpoints="sm" style="text-align: center;"></th>
+                                                        <th data-title="Volumen (gl)" data-breakpoints="xs" style="text-align: center;"></th>
                                                         <th data-title="Fecha" data-breakpoints="xs" style="text-align: center;">Fecha</th>
                                                         <th data-title="Lugar" data-breakpoints="all" style="text-align: center;">Lugar</th>
                                                     </tr>
@@ -1203,35 +1222,98 @@
                         <span aria-hidden="true">&times;</span>
                         <span class="sr-only">Close</span>
                     </button>
-                                <h4 class="modal-title"><i class="fa fa-beer"></i> Entrada Reciente </h4>
+                                <h4 class="modal-title"><i class="fa fa-beer"></i> Últimos registros </h4>
                             </div>
                             <div class="modal-body">
                                 <div class="row row-smx stats-container">
                                     <div class="col-xs-12 col-sm-6" style="text-align: center;">
-                                        <h6>Valor de Compra:</h6>
-                                        <h4 id="lastfuelentriespurchase" style="color:#78bd2e;">$</h4>
-                                        <h6>Odómetro:</h6>
-                                        <h4 id="lastfuelentriesodometer" style="color:#ffa500;">- Km</h4>
-                                        <h6>Tipo de Combustible:</h6>
+                                        <h6>Compra neta ($)</h6>
+                                        <h4 id="lastfuelentriespurchase" style="color:#78bd2e;">-</h4>
+                                        <span class="line"></span>
+                                        <h6>Odómetro (km)</h6>
+                                        <h4 id="lastfuelentriesodometer" style="color:#ffa500;">-</h4>
+                                        <span class="line"></span>
+                                        <h6>Tipo de combustible</h6>
                                         <h6 id="lastfuelentriesfueltype" style="color:#339cc3;">-</h6>
+                                        <span class="line"></span>
                                     </div>
                                     <div class="col-xs-12 col-sm-6" style="text-align: center;">
-                                        <h6>Precio del Galón:</h6>
-                                        <h4 id="lastfuelentriesfuelprice" style="color:red;">$</h4>
-                                        <h6>Volumen:</h6>
-                                        <h4 id="lastfuelentriesfuelamount" style="color:#78bd2e;">- Galones</h4>
-                                        <h6>Fecha:</h6>
-                                        <h6 id="lastfuelentriespurchasedate" style="color:#339cc3;">2017-01-16 13:00:00</h6>
+                                        <h6>Precio del galón ($/gl)</h6>
+                                        <h4 id="lastfuelentriesfuelprice" style="color:red;">-</h4>
+                                        <span class="line"></span>
+                                        <h6>Volumen (gl)</h6>
+                                        <h4 id="lastfuelentriesfuelamount" style="color:#78bd2e;">-</h4>
+                                        <span class="line"></span>
+                                        <h6>Fecha</h6>
+                                        <h6 id="lastfuelentriespurchasedate" style="color:#339cc3;">-</h6>
+                                        <span class="line"></span>
                                     </div>
                                     <div class="col-xs-12 col-sm-12" style="text-align: center;">
-                                        <h6>Lugar:</h6>
+                                        <h6>Lugar</h6>
                                         <h6 id="lastfuelentriesplace" style="color:#904C00;">-</h6>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-link pull-left backward" id="dashboardfuelbackward"><i class="fa fa-arrow-down"></i></button>
-                                <button type="button" class="btn btn-link pull-left forward" id="dashboardfuelforward"><i class="fa fa-arrow-up"></i></button>
+                                <div class="pull-left" style="text-align: center; position: relative;">
+                                    <button type="button" class="btn btn-link forward" id="dashboardfuelforward" style="padding: 2px; position: absolute; top: -8px; left: 0;"><i class="fa fa-arrow-up"></i></button>
+                                    <br>
+                                    <button type="button" class="btn btn-link backward" id="dashboardfuelbackward" style="padding: 2px; position: absolute; top: 12px; left: 0;"><i class="fa fa-arrow-down"></i></button>
+                                    <span class="label label-default" id="dashboardfuelslidenumber" style="position: absolute; margin-left: 30px; top: 10px;"></span>
+                                </div>
+                                <button type="button" class="btn btn-link closemodal" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <div class="modal fade" id="fuel-modal">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                                <h4 class="modal-title"><i class="fa fa-beer"></i> Agregar registro </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row row-smx stats-container">
+                                    <div class="col-xs-12 col-sm-6" style="text-align: center;">
+                                        <h6>Compra neta ($)</h6>
+                                        <input type="number" id="inputfuelpurchase" min="1" max="1000000" style="color:#78bd2e; min-width: 150px;"></input>
+                                        <span class="line"></span>
+                                        <h6>Odómetro (km)</h6>
+                                        <h4 id="lastfuelentriesodometer" style="color:#ffa500;">-</h4>
+                                        <span class="line"></span>
+                                        <h6>Tipo de combustible</h6>
+                                        <h6 id="lastfuelentriesfueltype" style="color:#339cc3;">-</h6>
+                                        <span class="line"></span>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6" style="text-align: center;">
+                                        <h6>Precio del galón ($/gl)</h6>
+                                        <h4 id="lastfuelentriesfuelprice" style="color:red;">-</h4>
+                                        <span class="line"></span>
+                                        <h6>Volumen (gl)</h6>
+                                        <h4 id="lastfuelentriesfuelamount" style="color:#78bd2e;">-</h4>
+                                        <span class="line"></span>
+                                        <h6>Fecha</h6>
+                                        <h6 id="lastfuelentriespurchasedate" style="color:#339cc3;">-</h6>
+                                        <span class="line"></span>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12" style="text-align: center;">
+                                        <h6>Lugar</h6>
+                                        <h6 id="lastfuelentriesplace" style="color:#904C00;">-</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="pull-left" style="text-align: center; position: relative;">
+                                    <button type="button" class="btn btn-link forward" id="dashboardfuelforward" style="padding: 2px; position: absolute; top: -8px; left: 0;"><i class="fa fa-arrow-up"></i></button>
+                                    <br>
+                                    <button type="button" class="btn btn-link backward" id="dashboardfuelbackward" style="padding: 2px; position: absolute; top: 12px; left: 0;"><i class="fa fa-arrow-down"></i></button>
+                                    <span class="label label-default" id="dashboardfuelslidenumber" style="position: absolute; margin-left: 30px; top: 10px;"></span>
+                                </div>
                                 <button type="button" class="btn btn-link closemodal" data-dismiss="modal">Cerrar</button>
                             </div>
                         </div>

@@ -1,17 +1,86 @@
-.xnotifications a:hover{
-  color: #339cc3;
+#actionbutton {
+  font-size: 28px !important;
+  bottom: 25px;
+  border-radius: 50%;
+  display: none;
+  font-size: 20px;
+  line-height: 45px;
+  font-weight: bold;
+  height: 60px;
+  position: fixed;
+  right: 25px;
+  text-align: center;
+  text-decoration: none;
+  width: 60px;
+  z-index: 14;
+  color: #fff !important;
+  vertical-align: middle;
+  background-color: rgba(255,165,0,0.7);    
+  -webkit-transition: all 1.5s;
+  -moz-transition: all 1.5s;
+  -ms-transition: all 1.5s;
+  -o-transition: all 1.5s;
+  transition: all 1.5s;
 }
+
+#actionbutton:hover,
+#actionbutton:focus {
+  background-color: rgba(255,165,0,1);
+  text-decoration: none;
+  outline: none;
+  transform: scale(1.1);
+}
+.action-dropdown-menu {
+  position: absolute;
+  top: 0;
+  left:0;
+  right: 0;
+  z-index: 1000;
+  float: left;
+  display: none;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 1rem;
+  color: #373a3c;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: .25rem;
+}
+.dropdown-menu {
+  margin-top: 15px;
+}
+.line {
+  background-color: #dbdbdb;
+  display: inline-block;
+  margin-bottom: 10px;
+  height: 1px;
+  width: 80%;
+}
+/*.xnotifications a:hover{
+  color: #339cc3;
+}*/
 .header .header-block-nav .notifications.new .counter {
     color: rgba(255,0,0,0.7);
 }
 .btn-link, .btn-link:link, .btn-link:hover, .btn-link:active, .btn-link:visited {
   color: #bdbdbd;
 }
-.btn-link:hover.backward {
- color: red; 
+.btn-link.backward {
+ color: rgba(255,0,0,0.7); 
 }
-.btn-link:hover.forward {
- color: #78bd2e; 
+.btn-link:hover.backward, .btn-link:focus.backward {
+ color: rgba(255,0,0,1); 
+}
+.btn-link.forward {
+ color: rgba(120,189,46,0.7);
+}
+.btn-link:hover.forward, .btn-link:focus.forward {
+ color: rgba(120,189,46,1);
 }
 .btn-link:hover.closemodal {
  color: #000;
@@ -25,18 +94,16 @@
 .dashboardfuelresume .mostrar {
   display: none;
 }
-.dashboardfuelresume:hover > .mostrar{
+.dashboardfuelresume:hover, .dashboardfuelresume:focus > .mostrar {
   display: block;
 }
-.dashboardfuelresume:hover{
+.dashboardfuelresume:hover, .dashboardfuelresume:focus {
   background: rgba(133,206,54,0.1);
 }
-
 @media (max-width: 767px){
   .title-description {
       display: block;
   }
-
 }
 @media (max-width: 818px){
   #fueltablefootable {
