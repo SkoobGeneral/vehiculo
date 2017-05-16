@@ -21,12 +21,12 @@ $TotalSlides = 0;
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-    	$TotalPurchaseThousands = number_format($row["TotalPurchase"],0,".",",");
-		$OdometerThousands = number_format($row["Odometer"],0,".",",");
-		$FuelPriceThousands = number_format($row["FuelPrice"],0,".",",");
+        $TotalPurchaseThousands = $row["TotalPurchase"];
+        $OdometerThousands = $row["Odometer"];
+        $FuelPriceThousands = $row["FuelPrice"];
 		$SlideNumber ++;
 		$TotalSlides = $result->num_rows;
-        echo '<a href="#" style="text-decoration:none;" onclick="event.preventDefault();">
+        echo '<a href="#" style="text-decoration:none;">
         <div class="dashboardfuelresume" data-toggle="modal" data-target="#fuelmore-modal" id="dashboardfuelentrieslink'.$SlideNumber.'" style="position:relative;" onclick="lastfuelentriesmodal(`'.$TotalPurchaseThousands.'`, `'.$OdometerThousands.'`, `'.$row["FuelType"].'`, `'.$FuelPriceThousands.'`, `'.$row["FuelAmount"].'`, `'.$row["PurchaseDate"].'`, `'.$row["Place"].'`, `'.$SlideNumber.'`, `'.$TotalSlides.'`);";>
         
         <div class="stat-icon"> <i class="fa fa-caret-right"></i> </div>

@@ -19,9 +19,9 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-    	$TotalPurchaseThousands = number_format($row["TotalPurchase"],0,".",",");
-		$OdometerThousands = number_format($row["Odometer"],0,".",",");
-		$FuelPriceThousands = number_format($row["FuelPrice"],0,".",",");
+        $TotalPurchaseThousands = $row["TotalPurchase"];
+        $OdometerThousands = $row["Odometer"];
+        $FuelPriceThousands = $row["FuelPrice"];
         echo '<tr><td>$'.$TotalPurchaseThousands.'</td><td>'.$OdometerThousands.'</td><td>'.$row["FuelType"].'</td><td>'.$FuelPriceThousands.'</td><td>'.$row["FuelAmount"].'</td><td>'.$row["PurchaseDate"].'</td><td>'.$row["Place"].'</td></tr>';
     }
 } else {
