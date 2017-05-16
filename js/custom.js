@@ -1,15 +1,84 @@
-  var token = $('#token').text();
-      var inputfuelpurchase = 0;
+      //var token = $('#token').text();
+      var fuelpurchase = "";
+      var fuelodometer = "";
+      var fueltype = "";
+      var fuelprice = "";
+      var fuelamount = "";
 
 
+
+        var datepicker = $('#datepicker');
+        var dateObj = new Date();
+        var day = dateObj.getDate();
+        var month = dateObj.getMonth() + 1;
+        var year = dateObj.getFullYear();
+        newdate = day+1 + "-" + month + "-" + year;
+        var date = new Date($.now()).toString().slice(4,15).split(" ").join("-");
+        /*if (datepicker.length > 0) {
+          datepicker.datepicker({
+            autoclose: true,
+            todayBtn: true,
+            language: "es",
+            endDate: date,
+            useCurrent: true,
+          });
+        }*/
+
+      $('#datepicker').datepicker({
+        todayBtn: "linked",
+        todayHighlight: true,
+        endDate: date,
+        orientation: "top",
+        autoclose: true
+
+      });
+
+      $(".readonly").on('keydown paste', function(e){
+        e.preventDefault();
+      });
       $('#inputfueltotalpurchase').bind('keyup change', function(e) {
-        fueltotalpurchase = $(this).mask("000.000", {reverse: true});
-        console.log(fueltotalpurchase.val());
-        });
+        fuelpurchase = $(this).mask("000.000", {reverse: true}).val().replace('.','');
+        calculateFuelAmount();
+        calculateFuelPrice();
+      });
       $('#inputfuelodometer').bind('keyup change', function(e) {
-        fuelodometer = $(this).mask("0.000.000", {reverse: true});
-        console.log(fuelodometer.val());
-        });
+        fuelodometer = $(this).mask("9.999.999", {reverse: true}).val().replace('.','');
+      });
+      $('#inputfueltype').bind('keyup change', function(e) {
+        fueltype = $(this).val();
+      });
+      $('#inputfuelprice').bind('keyup change', function(e) {
+        fuelprice = $(this).mask("99.999", {reverse: true}).val().replace('.','');
+        calculateFuelAmount();
+      });
+      $('#inputfuelamount').bind('keyup change', function(e) {
+        fuelamount = $(this).mask("99,999", {reverse: true}).val().replace(',','');
+        calculateFuelPrice();
+      });
+
+      function calculateFuelAmount(){
+        fuelamount = +(Math.round((fuelpurchase/fuelprice) + "e+3")  + "e-3");
+        if (fuelamount > 0 && fuelamount < 999999){
+          $('#inputfuelamount').val(fuelamount);
+        }else{
+          $('#inputfuelamount').val('');
+        }
+        console.log(fuelpurchase);
+        console.log(fuelprice);
+        console.log(fuelamount);
+      }
+
+      function calculateFuelPrice(){
+        fuelprice = +(Math.round((fuelpurchase/fuelamount) + "e+3")  + "e-3");
+        if (fuelprice > 0 && fuelprice < 999999){
+          $('#inputfuelprice').val(fuelprice);
+        }else{
+          $('#inputfuelprice').val('');
+        }
+        console.log(fuelpurchase);
+        console.log(fuelprice);
+        console.log(fuelamount);
+      }
       /*
       var tag = document.createElement('script');
 
@@ -211,7 +280,6 @@
       //Llenar Select de Tipo de Combustbile
       $.post('includes/getFuelType.php', function (response) {
             $("#inputfueltype").html(response);
-            console.log(response);
          });
 
 
@@ -337,19 +405,25 @@ $(function validateAll() {
       // The key name on the left side is the name attribute
       // of an input field. Validation rules are defined
       // on the right side
-      inputfueltotalpurchase: "required",
-      inputfuelodometer: "required",
+      inputfueltotalpurchase:{required: true, min: 0.1},
+      inputfuelodometer: {required: true, min: 0.1},
+      inputfueltype: "required",
+      inputfuelprice: {required: true, min: 0.1},
+      inputfuelamount: {required: true, min: 0.1},
+      inputfueldate: "required",
+      inputfuelhora: "required",
+      inputfuelminutos: "required",
+      inputfuelampm: "required",
       inputfuelplace: "required",
-      nombre: "required",
-      apellido: "required",
-      telefono: "required",
-      email: {
-        required: true,
+      //apellido: "required",
+      //telefono: "required",
+      //email: {
+        //required: true,
         // Specify that email should be validated
         // by the built-in "email" rule
-        email: true
-      },
-      aceptoTerminos: "required",
+        //email: true
+      //},
+      //aceptoTerminos: "required",
       //password: {
       //  required: true,
       //  minlength: 5
@@ -357,18 +431,23 @@ $(function validateAll() {
     },
     // Specify validation error messages
     messages: {
-      inputfueltotalpurchase: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa el valor.",
-      inputfuelodometer: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa el valor.",
-      inputfuelplace: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa el lugar.",
-      nombre: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa tu nombre.",
-      apellido: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa tu apellido.",
-      telefono: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa el teléfono.",
+      inputfueltotalpurchase: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa el valor",
+      inputfuelodometer: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa el valor",
+      inputfueltype: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa tu selección",
+      inputfuelprice: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa el valor",
+      inputfuelamount: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa el valor",
+      inputfueldate: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa la fecha",
+      inputfuelhora: "<span style='color: rgba(117,46,51,0.7);'>*hh",
+      inputfuelminutos: "<span style='color: rgba(117,46,51,0.7);'>*mm",
+      inputfuelampm: "<span style='color: rgba(117,46,51,0.7);'>*am/pm",
+      inputfuelplace: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa el lugar",
+      //telefono: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa el teléfono.",
       //password: {
       //  required: "Please provide a password",
       //  minlength: "Your password must be at least 5 characters long"
       //},
-      email: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa un correo válido.",
-      aceptoTerminos: "<br /><span style='color: rgba(117,46,51,0.7);'>*Acepta los términos."
+      //email: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa un correo válido.",
+      //aceptoTerminos: "<br /><span style='color: rgba(117,46,51,0.7);'>*Acepta los términos."
     },
     // Make sure the form is submitted to the destination defined
     // in the "action" attribute of the form when valid

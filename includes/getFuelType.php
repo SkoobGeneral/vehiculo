@@ -12,14 +12,14 @@ if ($conn->connect_error) {
 }
 mysqli_set_charset($conn,"utf8");
 
-$sql = "SELECT PK_Id, Name, Description FROM TBL_FuelType";
+$sql = "SELECT PK_Id, Name, Value, Description FROM TBL_FuelType";
 
 
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo '<option value="'.$row["name"].'">'.$row["Name"].'</option>';
+        echo '<option value="'.$row["Value"].'">'.$row["Name"].'</option>';
     }
 } else {
     echo '<option value="">-</option>';
