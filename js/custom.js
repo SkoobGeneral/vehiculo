@@ -42,42 +42,39 @@
         calculateFuelPrice();
       });
       $('#inputfuelodometer').bind('keyup change', function(e) {
-        fuelodometer = $(this).mask("9.999.999", {reverse: true}).val().replace('.','');
+        fuelodometer = $(this).mask("0.000.000", {reverse: true}).val();
       });
       $('#inputfueltype').bind('keyup change', function(e) {
         fueltype = $(this).val();
       });
       $('#inputfuelprice').bind('keyup change', function(e) {
-        fuelprice = $(this).mask("99.999", {reverse: true}).val().replace('.','');
+        fuelprice = $(this).mask("00.000", {reverse: true}).val().replace('.','');
         calculateFuelAmount();
       });
       $('#inputfuelamount').bind('keyup change', function(e) {
-        fuelamount = $(this).mask("99,999", {reverse: true}).val().replace(',','');
+        fuelamount = $(this).mask("00,000", {reverse: true}).val().replace(',','.');
         calculateFuelPrice();
+        console.log(fuelamount);
       });
 
       function calculateFuelAmount(){
         fuelamount = +(Math.round((fuelpurchase/fuelprice) + "e+3")  + "e-3");
-        if (fuelamount > 0 && fuelamount < 999999){
-          $('#inputfuelamount').val(fuelamount);
+        fuelamountstring = fuelamount.toLocaleString('de-DE');
+        if ((fuelamount) && (fuelamount < 999999)){
+          $('#inputfuelamount').val(fuelamountstring);
         }else{
           $('#inputfuelamount').val('');
         }
-        console.log(fuelpurchase);
-        console.log(fuelprice);
-        console.log(fuelamount);
       }
 
       function calculateFuelPrice(){
-        fuelprice = +(Math.round((fuelpurchase/fuelamount) + "e+3")  + "e-3");
-        if (fuelprice > 0 && fuelprice < 999999){
-          $('#inputfuelprice').val(fuelprice);
+        fuelprice = +(Math.round((fuelpurchase/fuelamount) + "e+0")  + "e-0");
+        fuelpricestring = fuelprice.toLocaleString('de-DE');
+        if ((fuelprice) && (fuelprice < 999999)){
+          $('#inputfuelprice').val(fuelpricestring);
         }else{
           $('#inputfuelprice').val('');
         }
-        console.log(fuelpurchase);
-        console.log(fuelprice);
-        console.log(fuelamount);
       }
       /*
       var tag = document.createElement('script');
@@ -317,7 +314,7 @@
 
     $(document).keyup(function(e) {
     	if (e.keyCode == 27) {
-          $('#fuelmore-modal').modal('hide');
+          //$('#fuelmore-modal').modal('hide');
     	}
 	});
 
@@ -390,7 +387,23 @@
     //
 
 
-    
+    //Insert Fuel Entry
+    function insertFuelEntry(){
+      $.post('includes/insertFuelEntry.php', 'tipoCelebracion=' + tipoCelebracionTexto + '&generoMusical=' + generoMusicalTexto + '&duracion=' + horasMusicaEnVivoTexto + '&invitados=' + invitadosTexto + '&formato=' + formatoTexto + '&fecha=' + fechaCelebracion + '&horaCompleta=' + horaCompletaCelebracion + '&ciudad=' + ciudadCelebracion + '&direccion=' + direccionCelebracion + '&nombre=' + nombreContacto + '&apellido=' + apellidoContacto + '&telefono=' + telefonoContacto + '&email=' + emailContacto + '&token=' + token + '&celebracionId=' + tipoCelebracionId + '&formatoId=' + formatoId + '&generoId=' + generoMusicalId + '&horasId=' + horasMusicaEnVivoId + '&invitadosId=' + invitadosId + '&valor=' + result, function (response) {
+          if (response == "Success!"){
+            $('#popupSimuladorReserva').hide();
+            $('#successModal').modal();
+            $('#successModal').show();
+          }
+          else {
+            $('#popupSimuladorReserva').hide();
+            $('#outputError').html(response);
+            $('#errorModal').modal();
+            $('#errorModal').show();
+          }
+      });
+      
+    }    
 
     //VALIDATION
 
@@ -405,11 +418,11 @@ $(function validateAll() {
       // The key name on the left side is the name attribute
       // of an input field. Validation rules are defined
       // on the right side
-      inputfueltotalpurchase:{required: true, min: 0.1},
-      inputfuelodometer: {required: true, min: 0.1},
+      inputfueltotalpurchase: "required",
+      inputfuelodometer: "required",
       inputfueltype: "required",
-      inputfuelprice: {required: true, min: 0.1},
-      inputfuelamount: {required: true, min: 0.1},
+      inputfuelprice: "required",
+      inputfuelamount: "required",
       inputfueldate: "required",
       inputfuelhora: "required",
       inputfuelminutos: "required",
