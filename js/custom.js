@@ -1,13 +1,20 @@
-      //var token = $('#token').text();
+      //token = $('#token').text();
+      var vehicleid = "f9655cbbcabae0df047715e3d60c26ec";
       var fuelpurchase = "";
       var fuelodometer = "";
       var fueltype = "";
       var fuelprice = "";
+      var fuelpricestring = "";
       var fuelamount = "";
+      var fuelamountstring = "";
+      var fueldate = "";
+      var fueltime = "";
+      var fuelplace = "";
 
 
 
-        var datepicker = $('#datepicker');
+
+        //var datepicker = $('#datepicker');
         var dateObj = new Date();
         var day = dateObj.getDate();
         var month = dateObj.getMonth() + 1;
@@ -24,12 +31,14 @@
           });
         }*/
 
-      $('#datepicker').datepicker({
+      $('#datepickerfuelinput').datepicker({
+        format: "dd/mm/yyyy",
         todayBtn: "linked",
         todayHighlight: true,
         endDate: date,
         orientation: "top",
-        autoclose: true
+        autoclose: true,
+        disableTouchKeyboard: true
 
       });
 
@@ -37,25 +46,34 @@
         e.preventDefault();
       });
       $('#inputfueltotalpurchase').bind('keyup change', function(e) {
+        if (($(this).val()=="0") || ($(this).val().substring(1,0) == "0")){$(this).val('');}
         fuelpurchase = $(this).mask("000.000", {reverse: true}).val().replace('.','');
-        calculateFuelAmount();
-        calculateFuelPrice();
+        //fuelpurchase = fuelpurchase.toLocaleString('de-DE');
+        //fuelpurchase = ($(this).val());
+        fuelpurchase = $(this).val();
       });
       $('#inputfuelodometer').bind('keyup change', function(e) {
-        fuelodometer = $(this).mask("0.000.000", {reverse: true}).val();
+        if ($(this).val()=="0" || $(this).val().substring(1,0) == "0"){$(this).val('');}
+        fuelodometer = $(this).mask("000.000", {reverse: true}).val();
+        fuelodometer = $(this).val();
       });
       $('#inputfueltype').bind('keyup change', function(e) {
         fueltype = $(this).val();
       });
       $('#inputfuelprice').bind('keyup change', function(e) {
+        if ($(this).val()=="0" || $(this).val().substring(1,0) == "0"){$(this).val('');}
         fuelprice = $(this).mask("00.000", {reverse: true}).val().replace('.','');
+        fuelprice = $(this).val();
         calculateFuelAmount();
       });
       $('#inputfuelamount').bind('keyup change', function(e) {
+        if ($(this).val()=="0" || $(this).val().substring(1,0) == "0"){$(this).val('');}
         fuelamount = $(this).mask("00,000", {reverse: true}).val().replace(',','.');
+        fuelamount = $(this).val();
+        //fuelamount = parseFloat(fuelamount);
         calculateFuelPrice();
-        console.log(fuelamount);
       });
+
 
       function calculateFuelAmount(){
         fuelamount = +(Math.round((fuelpurchase/fuelprice) + "e+3")  + "e-3");
@@ -68,13 +86,34 @@
       }
 
       function calculateFuelPrice(){
-        fuelprice = +(Math.round((fuelpurchase/fuelamount) + "e+0")  + "e-0");
+        fuelprice = +(Math.round(((fuelpurchase.replace('.',''))/(fuelamount.replace(',','.'))) + "e+0")  + "e-0");
         fuelpricestring = fuelprice.toLocaleString('de-DE');
         if ((fuelprice) && (fuelprice < 999999)){
           $('#inputfuelprice').val(fuelpricestring);
         }else{
           $('#inputfuelprice').val('');
         }
+      }
+
+      $('#datepickerfuelinput').on('change', function() {
+          fueldate = $(this).val();
+        });
+      $('#inputfuelhours').on('change', function() {
+          updateFuelTime();
+        });
+
+      $('#inputfuelminutes').on('change', function() {
+          updateFuelTime();
+        });
+
+      $('#inputfuelampm').on('change', function() {
+          updateFuelTime();
+        });
+      $('#inputfuelplace').bind('keyup change', function(e) {
+        fuelplace = $(this).val();
+      });
+      function updateFuelTime() {
+        fueltime = $('#inputfuelhours').val() + ":" + $('#inputfuelminutes').val() + " " + $('#inputfuelampm').val();
       }
       /*
       var tag = document.createElement('script');
@@ -142,13 +181,13 @@
         setTimeout(function(){$(".fueltable").html(response).fadeIn('slow')},500)
       });
 
-      function lastfuelentriesmodal(purchase, odometer, fueltype, fuelprice, fuelamount, purchasedate, place, slidenumber, totalslides) {
+      function lastfuelentriesmodal(purchase, odometer, fueltype, fuelprice, fuelamount, purchasedate, purchasetime, place, slidenumber, totalslides) {
         $('#lastfuelentriespurchase').text('$'+purchase);
         $('#lastfuelentriesodometer').text(odometer);
         $('#lastfuelentriesfueltype').text(fueltype);
         $('#lastfuelentriesfuelprice').text('$'+fuelprice);
         $('#lastfuelentriesfuelamount').text('$'+fuelamount);
-        $('#lastfuelentriespurchasedate').text(purchasedate);
+        $('#lastfuelentriespurchasedate').text(purchasedate+' '+purchasetime);
         $('#lastfuelentriesplace').text(place);
         $('#dashboardfuelslidenumber').text(slidenumber+" de "+totalslides);
         dashboardfueltotalslides = totalslides;
@@ -319,91 +358,24 @@
 	});
 
 
-    //BEGIN PRICE CALCULATOR
-    var result;
-    //
-    var listItemsCelebracion = "";
-    var tipoCelebracionId;
-    var premium;
-    var tipoCelebracionTexto = "";
-    var customText = "";
-    //
-    var listItemsGeneroMusical = "";
-    var generoMusicalId;
-    var generoMusicalTexto = "";
-    //
-    var listItemsMusicos = "";
-    var musicosId;
-    var musicosTexto = "";
-    //
-    var listItemsHorasMusicaEnVivo = "";
-    var horasMusicaEnVivoId;
-    var horasMusicaEnVivoTexto = "";
-    //
-    var horasAdicionales;
-    //
-    var valorAdicional = 0;
-    //
-    var listItemsInvitados = "";
-    var invitadosId;
-    var invitadosTexto = "";
-    //
-    var formatoId = 1;
-    var formatoTexto = "";
-    //
-    //FORM
-    //
-    var fechaCelebracion = "";
-    //
-    var horaCompletaCelebracion = "";
-    //
-    var direccionCelebracion = "";
-    //
-    var ciudadCelebracion = "";
-    //
-    var nombreContacto = "";
-    //
-    var apellidoContacto = "";
-    //
-    var telefonoContacto = "";
-    //
-    var emailContacto = "";
-    //
-    var outputReserva = "";
-
-    //CONTACT FORM 1 EVENTO ESPECIAL
-
-    var descripcionEventoEspecial = "";
-    //
-    var nombreContactoEventoEspecial = "";
-    //
-    var telefonoContactoEventoEspecial = "";
-    //
-    var preferenciaHoraContacto = "";
-
-    //CONTACT FORM 2 PREGUNTAS Y SUGERENCIAS - OTROS
-
-    var buzonDeMensajes = "";
-    //
-
-
     //Insert Fuel Entry
     function insertFuelEntry(){
-      $.post('includes/insertFuelEntry.php', 'tipoCelebracion=' + tipoCelebracionTexto + '&generoMusical=' + generoMusicalTexto + '&duracion=' + horasMusicaEnVivoTexto + '&invitados=' + invitadosTexto + '&formato=' + formatoTexto + '&fecha=' + fechaCelebracion + '&horaCompleta=' + horaCompletaCelebracion + '&ciudad=' + ciudadCelebracion + '&direccion=' + direccionCelebracion + '&nombre=' + nombreContacto + '&apellido=' + apellidoContacto + '&telefono=' + telefonoContacto + '&email=' + emailContacto + '&token=' + token + '&celebracionId=' + tipoCelebracionId + '&formatoId=' + formatoId + '&generoId=' + generoMusicalId + '&horasId=' + horasMusicaEnVivoId + '&invitadosId=' + invitadosId + '&valor=' + result, function (response) {
-          if (response == "Success!"){
-            $('#popupSimuladorReserva').hide();
-            $('#successModal').modal();
-            $('#successModal').show();
-          }
-          else {
-            $('#popupSimuladorReserva').hide();
-            $('#outputError').html(response);
-            $('#errorModal').modal();
-            $('#errorModal').show();
-          }
+      event.preventDefault();
+      $.post('includes/insertFuelEntry.php', 'fuelPurchase=' + fuelpurchase + '&fuelOdometer=' + fuelodometer + '&fuelType=' + fueltype + '&fuelPrice=' + fuelpricestring + '&fuelAmount=' + fuelamountstring + '&fuelDate=' + fueldate + '&fuelTime=' + fueltime + '&fuelPlace=' + fuelplace + '&vehicleId=' + vehicleid, function (response) {
+          alert(response);
+          //if (response == "Success!"){
+            //
+          //}
+          //else {
+            //$('#popupSimuladorReserva').hide();
+            //$('#outputError').html(response);
+            //$('#errorModal').modal();
+            //$('#errorModal').show();
+          //}
       });
       
-    }    
+    }
+        
 
     //VALIDATION
 
@@ -418,14 +390,14 @@ $(function validateAll() {
       // The key name on the left side is the name attribute
       // of an input field. Validation rules are defined
       // on the right side
-      inputfueltotalpurchase: "required",
-      inputfuelodometer: "required",
+      inputfueltotalpurchase: {required: true, max: 999999},
+      inputfuelodometer: {required: true, max: 9999999},
       inputfueltype: "required",
-      inputfuelprice: "required",
-      inputfuelamount: "required",
+      inputfuelprice: {required: true, max: 99999},
+      inputfuelamount: {required: true},
       inputfueldate: "required",
-      inputfuelhora: "required",
-      inputfuelminutos: "required",
+      inputfuelhours: "required",
+      inputfuelminutes: "required",
       inputfuelampm: "required",
       inputfuelplace: "required",
       //apellido: "required",
@@ -450,8 +422,8 @@ $(function validateAll() {
       inputfuelprice: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa el valor",
       inputfuelamount: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa el valor",
       inputfueldate: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa la fecha",
-      inputfuelhora: "<span style='color: rgba(117,46,51,0.7);'>*hh",
-      inputfuelminutos: "<span style='color: rgba(117,46,51,0.7);'>*mm",
+      inputfuelhours: "<span style='color: rgba(117,46,51,0.7);'>*hh",
+      inputfuelminutes: "<span style='color: rgba(117,46,51,0.7);'>*mm",
       inputfuelampm: "<span style='color: rgba(117,46,51,0.7);'>*am/pm",
       inputfuelplace: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa el lugar",
       //telefono: "<span style='color: rgba(117,46,51,0.7);'>*Ingresa el teléfono.",
@@ -466,7 +438,7 @@ $(function validateAll() {
     // in the "action" attribute of the form when valid
     submitHandler: function(form) {
       //form.submit();
-      alert();
+      insertFuelEntry();
     }
   });
 });

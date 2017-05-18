@@ -1245,7 +1245,7 @@
                                         <h6>Volumen (gl)</h6>
                                         <h4 id="lastfuelentriesfuelamount" style="color:#78bd2e;">-</h4>
                                         <span class="line"></span>
-                                        <h6>Fecha</h6>
+                                        <h6>Fecha y Hora</h6>
                                         <h6 id="lastfuelentriespurchasedate" style="color:#339cc3;">-</h6>
                                         <span class="line"></span>
                                     </div>
@@ -1270,7 +1270,7 @@
                     <!-- /.modal-dialog -->
                 </div>
                 <div class="modal fade" id="add-fuel-modal">
-                <form id="form" name="inputfuelentry">
+                <form method="post" id="form" name="inputfuelentry">
                     <div class="modal-dialog modal-md">
                         <div class="modal-content">
                             <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1283,10 +1283,10 @@
                                 <div class="row row-smx stats-container">
                                     <div class="col-xs-12 col-sm-6" style="text-align: center;">
                                         <h6>Compra neta ($)</h6>
-                                        <input type="text" id="inputfueltotalpurchase" name="inputfueltotalpurchase" style="color:#78bd2e; width: 80%; min-width: 150px; text-align: center;" required="true"></input>
+                                        <input type="number" id="inputfueltotalpurchase" name="inputfueltotalpurchase" style="color:#78bd2e; width: 80%; min-width: 150px; text-align: center;" required="true"></input>
                                         <span class="line"></span>
                                         <h6>Odómetro (km)</h6>
-                                        <input type="text" id="inputfuelodometer" name="inputfuelodometer" style="color:#ffa500; width: 80%; min-width: 150px; text-align: center;" required="true"></input>
+                                        <input type="number" id="inputfuelodometer" name="inputfuelodometer" style="color:#ffa500; width: 80%; min-width: 150px; text-align: center;" required="true"></input>
                                         <span class="line"></span>
                                         <h6>Tipo de combustible</h6>
                                         <select id="inputfueltype" name="inputfueltype" style="color:#339cc3; width: 80%; min-width: 150px; text-align: center;" required="true"></select>
@@ -1294,21 +1294,21 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-6" style="text-align: center;">
                                         <h6>Precio del galón ($/gl)</h6>
-                                        <input type="text" id="inputfuelprice" name="inputfuelprice" style="color:red; width: 80%; min-width: 150px; text-align: center;"></input>
+                                        <input type="number" id="inputfuelprice" name="inputfuelprice" style="color:red; width: 80%; min-width: 150px; text-align: center;"></input>
                                         <span class="line"></span>
                                         <h6>Volumen (gl)</h6>
-                                        <input type="text" id="inputfuelamount" name="inputfuelamount" style="color:#78bd2e; width: 80%; min-width: 150px; text-align: center;" required="true"></input>
+                                        <input type="tel" id="inputfuelamount" name="inputfuelamount" style="color:#78bd2e; width: 80%; min-width: 150px; text-align: center;" required="true"></input>
                                         <span class="line"></span>
                                         <h6>Fecha y Hora</h6>
                                         <!--<div class="input-append date" id="datepicker" data-date-format="dd-mm-yyyy">
                                           <input class="span2" size="16" type="text" required="true">
                                           <span class="add-on"><i class="icon-th"></i></span>
                                         </div>-->
-                                        <input type="text" id="datepicker" name="inputfueldate" class="readonly" style="color:#339cc3; min-width: 150px; width: 80%; text-align: center;" onfocus="blur();"></input>
+                                        <input type="text" id="datepickerfuelinput" name="inputfueldate" style="color:#339cc3; min-width: 150px; width: 80%; text-align: center;" onfocus="blur();"></input>
                                         <div style="margin: 10px auto 0; width: 80%;">
                                             <div style="display:inline-flex;">
                                                 <div>
-                                                <select class="calculador-control" name="inputfuelhora" style="border-radius: 5px; min-width:48px; max-width: 58px;" required="true">
+                                                <select class="calculador-control" id="inputfuelhours" name="inputfuelhours" style="border-radius: 5px; min-width:48px; max-width: 58px;" required="true">
                                                     <option value="" selected="true">--</option>
                                                     <option value="01">01</option>
                                                     <option value="02">02</option>
@@ -1326,7 +1326,7 @@
                                                 </div>
                                                 <p style="margin-left: 5px;">:</p>
                                                 <div>
-                                                    <select class="calculador-control" name="inputfuelminutos" style="border-radius: 5px; min-width:48px; max-width: 58px; margin-left:5px;" required="true">
+                                                    <select class="calculador-control" id="inputfuelminutes" name="inputfuelminutes" style="border-radius: 5px; min-width:48px; max-width: 58px; margin-left:5px;" required="true">
                                                         <option value="" selected="true">--</option>
                                                         <option value="00">00</option>
                                                         <option value="15">15</option>
@@ -1336,10 +1336,10 @@
                                                 </div>
                                                 <p style="margin-left: 5px;">:</p>
                                                 <div>
-                                                    <select class="calculador-control" name="inputfuelampm" style="border-radius: 5px; min-width:55px; max-width: 65px; margin-left: 5px;" required="true">
+                                                    <select class="calculador-control" id="inputfuelampm" name="inputfuelampm" style="border-radius: 5px; min-width:55px; max-width: 65px; margin-left: 5px;" required="true">
                                                         <option value="" selected="true">--</option>
-                                                        <option value="A.M.">A.M.</option>
-                                                        <option value="P.M.">P.M.</option>
+                                                        <option value="a.m.">a.m.</option>
+                                                        <option value="p.m.">p.m.</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -1354,13 +1354,13 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-link closemodal" data-dismiss="modal">Cerrar</button>
-                                <input type="submit" class="btn btn-success" id="btn-enviar-evento-privado" name="submit" value="Agregar" style="float:right;">
+                                <input type="submit" class="btn btn-success" id="btn-insert-fuel-entry" name="submit" value="Agregar" style="float:right;">
                             </div>
                         </div>
                         <!-- /.modal-content -->
+                    </form>
                     </div>
                     <!-- /.modal-dialog -->
-                </form>
                 </div>
                 <!-- /.modal -->
                 <div class="modal fade" id="confirm-modal">

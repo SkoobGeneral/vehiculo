@@ -16,31 +16,22 @@ if ($conn->connect_error) {
 mysqli_set_charset($conn,"utf8");
 
 // Escape user inputs for security
-$TipoCelebracion = mysqli_real_escape_string($conn, $_POST['tipoCelebracion']);
-$GeneroMusical = mysqli_real_escape_string($conn, $_POST['generoMusical']);
-$Duracion = mysqli_real_escape_string($conn, $_POST['duracion']);
-$Invitados = mysqli_real_escape_string($conn, $_POST['invitados']);
-$Formato = mysqli_real_escape_string($conn, $_POST['formato']);
-$FechaEvento = mysqli_real_escape_string($conn, $_POST['fecha']);
-$HoraEvento = mysqli_real_escape_string($conn, $_POST['horaCompleta']);
-$CiudadEvento = mysqli_real_escape_string($conn, $_POST['ciudad']);
-$DireccionEvento = mysqli_real_escape_string($conn, $_POST['direccion']);
-$Nombre = mysqli_real_escape_string($conn, $_POST['nombre']);
-$Apellido = mysqli_real_escape_string($conn, $_POST['apellido']);
-$Telefono = mysqli_real_escape_string($conn, $_POST['telefono']);
-$Email = mysqli_real_escape_string($conn, $_POST['email']);
-
-$Token = mysqli_real_escape_string($conn, $_POST['token']);
-$CelebracionId = mysqli_real_escape_string($conn, $_POST['celebracionId']);
-$FormatoId = mysqli_real_escape_string($conn, $_POST['formatoId']);
-$GeneroId = mysqli_real_escape_string($conn, $_POST['generoId']);
-$HorasId = mysqli_real_escape_string($conn, $_POST['horasId']);
-$InvitadosId = mysqli_real_escape_string($conn, $_POST['invitadosId']);
-$Valor = mysqli_real_escape_string($conn, $_POST['valor']);
+$FuelPurchase = mysqli_real_escape_string($conn, $_POST['fuelPurchase']);
+$FuelOdometer = mysqli_real_escape_string($conn, $_POST['fuelOdometer']);
+$FuelType = mysqli_real_escape_string($conn, $_POST['fuelType']);
+$FuelPrice = mysqli_real_escape_string($conn, $_POST['fuelPrice']);
+$FuelAmont = mysqli_real_escape_string($conn, $_POST['fuelAmount']);
+$FuelDate = mysqli_real_escape_string($conn, $_POST['fuelDate']);
+$FuelTime = mysqli_real_escape_string($conn, $_POST['fuelTime']);
+$FuelPlace = mysqli_real_escape_string($conn, $_POST['fuelPlace']);
+$VehicleId = mysqli_real_escape_string($conn, $_POST['vehicleId']);
+//$Token = mysqli_real_escape_string($conn, $_POST['token']);
 
 
-$sql = "INSERT INTO TBL_Reservas (TipoCelebracion, GeneroMusical, Duracion, Invitados, Formato, Fecha, Hora, Ciudad, Direccion, Nombre, Apellido, Telefono, Email, FechaHoraReserva, Valor, Token)
-VALUES ('$TipoCelebracion', '$GeneroMusical', '$Duracion', '$Invitados', '$Formato', '$FechaEvento', '$HoraEvento', '$CiudadEvento', '$DireccionEvento', '$Nombre', '$Apellido', '$Telefono', '$Email', '$FechaReserva', '$Valor', '$Token')";
+
+
+$sql = "INSERT INTO TBL_Fuel (FK_VehicleId, Odometer, FuelType, FuelPrice, FuelAmount, TotalPurchase, PurchaseDate, PurchaseTime, Place)
+VALUES ('$VehicleId', '$FuelOdometer', '$FuelType', '$FuelPrice', '$FuelAmount', '$FuelPurchase', '$FuelDate', '$FuelTime', '$FuelPlace')";
 
 //$sql = "INSERT FK_VehicleId, Odometer, FuelType, FuelPrice, FuelAmount, TotalPurchase, Place, PurchaseDate VALUES XXX FROM TBL_Fuel WHERE FK_VehicleId = 1 ORDER BY PurchaseDate DESC";
 

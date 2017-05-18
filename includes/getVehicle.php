@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 }
 mysqli_set_charset($conn,"utf8");
 
-$sql = "SELECT PK_Id, Name, Model, Description FROM TBL_Vehicle WHERE PK_Id = '1'";
+$sql = "SELECT PK_Id, Name, Model, Description FROM TBL_Vehicle WHERE PK_Id = 'f9655cbbcabae0df047715e3d60c26ec'";
 
 
 $result = $conn->query($sql);
