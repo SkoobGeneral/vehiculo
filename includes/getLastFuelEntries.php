@@ -40,7 +40,7 @@ if ($result->num_rows > 0) {
 				<span class="progress-bar" style="width: 75%;"></span>
 			</div>
 		</progress></div></a>';
-    } if ($SlideNumber == 4) {echo '<div class="pull-right" style="margin-top:5px;"> <a href="#" style="text-decoration:none;" onclick="$(`.section`).hide(); $(`#sidebar-menu li`).removeClass(`active`); fuelsection();"> Ver más </a></div>';}
+    } if ($SlideNumber == 4) {echo '<div class="pull-right" style="margin-top:5px;"> <a href="#" style="text-decoration:none;" onclick="$(`.section`).hide(); $(`#sidebar-menu li`).removeClass(`active`); fuelSection();"> Ver más </a></div>';}
 } else {
     echo "No hay registros";
 }

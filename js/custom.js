@@ -1,4 +1,9 @@
+      if(window.location.href.indexOf('#fuel') != -1) {
+        $('#fuelsectionlink a').click();
+      }
+
       //token = $('#token').text();
+      var fuelentryid = "";
       var vehicleid = "f9655cbbcabae0df047715e3d60c26ec";
       var fuelpurchase = "";
       var fuelodometer = "";
@@ -13,6 +18,29 @@
 
 
 
+      function clearFuelForm(){
+        fuelentryid = "";
+        fuelpurchase = "";
+        fuelodometer = "";
+        fueltype = "";
+        fuelprice = "";
+        fuelpricestring = "";
+        fuelamount = "";
+        fuelamountstring = "";
+        fueldate = "";
+        fueltime = "";
+        fuelplace = "";
+        $('#inputfueltotalpurchase').val('');
+        $('#inputfuelodometer').val('');
+        $('#inputfueltype').val('');
+        $('#inputfuelprice').val('');
+        $('#inputfuelamount').val('');
+        $('#datepickerfuelinput').val('');
+        $('#inputfuelhours').val('');
+        $('#inputfuelminutes').val('');
+        $('#inputfuelampm').val('');
+        $('#inputfuelplace').val('');
+      }
 
         //var datepicker = $('#datepicker');
         var today = new Date();
@@ -354,17 +382,59 @@
          });
 
       $('.linkinputfuel').click(function(e){
-        $('#add-fuel-title').html('<i class="fa fa-beer"></i> Aregar Registro de Combustbile');
+        clearFuelForm();
+        $('#add-fuel-title').html('<i class="fa fa-beer"></i> Agregar Registro de Combustbile');
         $('#btn-insert-fuel-entry').show();
         $('#btn-update-fuel-entry').hide();
       })
 
-      function editfuelentrymodal(purchase, odometer, fueltype, fuelprice, fuelamount, purchasedate, purchasetime, place) {
+      //Insert Fuel Entry
+      function insertFuelEntryAction(){
+        console.log('check2');
+        //event.preventDefault();
+        fuelamountstring = fuelamount.toLocaleString('de-DE');
+        fuelpricestring = fuelprice.toLocaleString('de-DE');
+        $.post('includes/insertFuelEntry.php', 'fuelPurchase=' + fuelpurchase + '&fuelOdometer=' + fuelodometer + '&fuelType=' + fueltype + '&fuelPrice=' + fuelpricestring + '&fuelAmount=' + fuelamountstring + '&fuelDate=' + fueldate + '&fuelTime=' + fueltime + '&fuelPlace=' + fuelplace + '&vehicleId=' + vehicleid, function (response) {
+            console.log('check3');
+            if (response == "Success!"){
+              alert("listo el insert");
+              //$('#completeLinkFuelSection').click();
+              //$('#add-fuel-modal').modal('hide');
+            }
+            else {
+              console.log(response);
+              //$('#popupSimuladorReserva').hide();
+              //$('#outputError').html(response);
+              //$('#errorModal').modal();
+              //$('#errorModal').show();
+            }
+            console.log('check4');
+        });
+        
+      }
+      //Update Fuel Entry
+      $('#btn-update-fuel-entry').click(function(e){
+        e.preventDefault();
+        updateFuelEntryAction();
+      })
+
+      function updateFuelEntryModal(id, purchase, odometer, type, price, amount, purchasedate, purchasetime, place) {
+        fuelentryid = id;
+        fuelpurchase = purchase;
+        fuelodometer = odometer;
+        fueltype = type;
+        fuelprice = price;
+        fuelpricestring = price;
+        fuelamount = amount;
+        fuelamountstring = amount
+        fueldate = purchasedate;
+        fueltime = purchasetime;
+        fuelplace = place;
         $('#inputfueltotalpurchase').val(purchase);
         $('#inputfuelodometer').val(odometer);
-        $('#inputfueltype').val(fueltype);
-        $('#inputfuelprice').val(fuelprice);
-        $('#inputfuelamount').val(fuelamount);
+        $('#inputfueltype').val(type);
+        $('#inputfuelprice').val(price);
+        $('#inputfuelamount').val(amount);
         $('#datepickerfuelinput').val(purchasedate);
         $('#inputfuelhours').val(purchasetime.slice(0,2));
         $('#inputfuelminutes').val(purchasetime.slice(3,5));
@@ -389,12 +459,40 @@
         //$('#dashboardfuelslidenumber').text(slidenumber+" de "+totalslides);
       }
 
+      function updateFuelEntryAction(){
+        console.log('check2');
+        //event.preventDefault();
+        fuelamountstring = fuelamount.toLocaleString('de-DE');
+        fuelpricestring = fuelprice.toLocaleString('de-DE');
+        $.post('includes/updateFuelEntry.php', 'fuelPurchase=' + fuelpurchase + '&fuelOdometer=' + fuelodometer + '&fuelType=' + fueltype + '&fuelPrice=' + fuelpricestring + '&fuelAmount=' + fuelamountstring + '&fuelDate=' + fueldate + '&fuelTime=' + fueltime + '&fuelPlace=' + fuelplace + '&vehicleId=' + vehicleid + '&fuelEntryId=' + fuelentryid, function (response) {
+            console.log('check3');
+            if (response == "Success!"){
+              console.log(response)
+              alert("listo el update");
+              //$('#completeLinkFuelSection').click();
+              //window.location.reload(true);
+              //location.reload(true);
+              //$('#add-fuel-modal').modal('hide');
+            }
+            else {
+              console.log(response);
+              //$('#popupSimuladorReserva').hide();
+              //$('#outputError').html(response);
+              //$('#errorModal').modal();
+              //$('#errorModal').show();
+            }
+            console.log('check4');
+        });
+        
+      }
 
+      //Delete Fuel Entry
       $('#btn-delete-fuel-entry').click(function(){
-        alert();
+        deleteFuelEntryAction(vehicleid, fuelentryid);
       })
 
-      function deletefuelentrymodal(purchase, odometer, fueltype, fuelprice, fuelamount, purchasedate, purchasetime, place) {
+      function deleteFuelEntryModal(id, purchase, odometer, fueltype, fuelprice, fuelamount, purchasedate, purchasetime, place) {
+        fuelentryid = id;
         $('#lastfuelentriespurchase').text('$'+purchase);
         $('#lastfuelentriesodometer').text(odometer);
         $('#lastfuelentriesfueltype').text(fueltype);
@@ -411,13 +509,29 @@
         //$('#dashboardfuelslidenumber').text(slidenumber+" de "+totalslides);
       }
 
+      function deleteFuelEntryAction(vehicleid, fuelentryid){
+        $.post('includes/deleteFuelEntry.php', 'vehicleId=' + vehicleid + '&fuelEntryId=' + fuelentryid, function (response) {
+          if (response == "Success!"){
+            alert("listo el delete");
+            //$('#completeLinkFuelSection').click();
+            //$('#add-fuel-modal').modal('hide');
+          }
+          else {
+            console.log(response);
+            //$('#popupSimuladorReserva').hide();
+            //$('#outputError').html(response);
+            //$('#errorModal').modal();
+            //$('#errorModal').show();
+          }
+      });
+      }
 
 
-      function dashboardsection () {
+      function dashboardSection () {
          $('#dashboardsection').show();
          $('#dashboardsectionlink').addClass('active');
       }
-      function fuelsection () {
+      function fuelSection () {
          $('#fuelsection').show();
          $('#fuelsectionlink').addClass('active');
       }
@@ -427,31 +541,6 @@
           //$('#fuelmore-modal').modal('hide');
     	}
 	});
-
-
-    //Insert Fuel Entry
-    function insertFuelEntry(){
-      console.log('check2');
-      //event.preventDefault();
-      fuelamountstring = fuelamount.toLocaleString('de-DE');
-      fuelpricestring = fuelprice.toLocaleString('de-DE');
-      $.post('includes/insertFuelEntry.php', 'fuelPurchase=' + fuelpurchase + '&fuelOdometer=' + fuelodometer + '&fuelType=' + fueltype + '&fuelPrice=' + fuelpricestring + '&fuelAmount=' + fuelamountstring + '&fuelDate=' + fueldate + '&fuelTime=' + fueltime + '&fuelPlace=' + fuelplace + '&vehicleId=' + vehicleid, function (response) {
-          console.log('check3');
-          if (response == "Success!"){
-            //location.reload(true);
-            $('#add-fuel-modal').modal('hide');
-          }
-          else {
-            console.log(response);
-            //$('#popupSimuladorReserva').hide();
-            //$('#outputError').html(response);
-            //$('#errorModal').modal();
-            //$('#errorModal').show();
-          }
-          console.log('check4');
-      });
-      
-    }
         
 
     //VALIDATION
@@ -516,7 +605,7 @@ $(function validateAll() {
     submitHandler: function(form) {
       //form.submit();
       event.preventDefault();
-      insertFuelEntry();
+      insertFuelEntryAction();
       console.log('check1');
     }
   });
