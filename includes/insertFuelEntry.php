@@ -20,7 +20,7 @@ $FuelPurchase = mysqli_real_escape_string($conn, $_POST['fuelPurchase']);
 $FuelOdometer = mysqli_real_escape_string($conn, $_POST['fuelOdometer']);
 $FuelType = mysqli_real_escape_string($conn, $_POST['fuelType']);
 $FuelPrice = mysqli_real_escape_string($conn, $_POST['fuelPrice']);
-$FuelAmont = mysqli_real_escape_string($conn, $_POST['fuelAmount']);
+$FuelAmount = mysqli_real_escape_string($conn, $_POST['fuelAmount']);
 $FuelDate = mysqli_real_escape_string($conn, $_POST['fuelDate']);
 $FuelTime = mysqli_real_escape_string($conn, $_POST['fuelTime']);
 $FuelPlace = mysqli_real_escape_string($conn, $_POST['fuelPlace']);
@@ -30,10 +30,7 @@ $VehicleId = mysqli_real_escape_string($conn, $_POST['vehicleId']);
 
 
 
-$sql = "INSERT INTO TBL_Fuel (FK_VehicleId, Odometer, FuelType, FuelPrice, FuelAmount, TotalPurchase, PurchaseDate, PurchaseTime, Place)
-VALUES ('$VehicleId', '$FuelOdometer', '$FuelType', '$FuelPrice', '$FuelAmount', '$FuelPurchase', '$FuelDate', '$FuelTime', '$FuelPlace')";
-
-//$sql = "INSERT FK_VehicleId, Odometer, FuelType, FuelPrice, FuelAmount, TotalPurchase, Place, PurchaseDate VALUES XXX FROM TBL_Fuel WHERE FK_VehicleId = 1 ORDER BY PurchaseDate DESC";
+$sql = "INSERT INTO TBL_Fuel (FK_VehicleId, Odometer, FuelType, FuelPrice, FuelAmount, TotalPurchase, PurchaseDate, PurchaseTime, Place) VALUES ('$VehicleId', '$FuelOdometer', '$FuelType', '$FuelPrice', '$FuelAmount', '$FuelPurchase', '$FuelDate', '$FuelTime', '$FuelPlace')";
 
 
 $result = $conn->query($sql);
