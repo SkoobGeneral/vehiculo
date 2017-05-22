@@ -15,6 +15,7 @@
       var fueldate = "";
       var fueltime = "";
       var fuelplace = "";
+      var flagform = "";
 
 
 
@@ -55,6 +56,7 @@
             mm='0'+mm;
         } 
         var today = dd+'/'+mm+'/'+yyyy;
+        var todayReversed = yyyy+'/'+mm+'/'+dd;
         /*if (datepicker.length > 0) {
           datepicker.datepicker({
             autoclose: true,
@@ -82,6 +84,10 @@
       $('#inputfueltotalpurchase').bind('keyup change', function(e) {
         if (($(this).val()=="0") || ($(this).val().substring(1,0) == "0")){$(this).val('');}
         fuelpurchase = $(this).mask("000.000", {reverse: true}).val().replace('.','');
+        fuelprice = "";
+        fuelamount = "";
+        $('#inputfuelprice').val(fuelprice);
+        $('#inputfuelamount').val(fuelamount);
         //fuelpurchase = fuelpurchase.toLocaleString('de-DE');
         //fuelpurchase = ($(this).val());
         fuelpurchase = $(this).val();
@@ -358,31 +364,38 @@
             $("#inputfueltype").html(response);
          });
 
+      function fillFuelLastEntries(){
+        $.post('includes/getLastFuelEntries.php', function (response) {
+          setTimeout(function(){$(".fueltable").html(response).fadeIn('slow')},500)
+        })
+      }
 
-
+      function fillFuelTable(){
       //Llenar Tabla de Registro de Combustbile
-      $.post('includes/getFuelEntries.php', function (response) {
-            $("#fueltablebodysection").html(response);
-            $('#fueltablefootable').footable({
-                "paging": {
-                    "enabled": true,
-                    "size": 10,
-                    "countFormat": "{CP} de {TP}"
-                },
-                "filtering": {
-                    "enabled": true,
-                    "delay": 1,
-                    "placeholder": "Buscar..."
-                },
-                "sorting": {
-                    "enabled": true
-                },
-                "empty": "No hay Registros."
-            });
-         });
+        $.post('includes/getFuelEntries.php', function (response) {
+              $("#fueltablebodysection").html(response);
+              $('#fueltablefootable').footable({
+                  "paging": {
+                      "enabled": true,
+                      "size": 10,
+                      "countFormat": "{CP} de {TP}"
+                  },
+                  "filtering": {
+                      "enabled": true,
+                      "delay": 1,
+                      "placeholder": "Buscar..."
+                  },
+                  "sorting": {
+                      "enabled": true
+                  },
+                  "empty": "No hay Registros."
+              });
+           });
+      }
 
       $('.linkinputfuel').click(function(e){
         clearFuelForm();
+        flag = 'fuelentryinsert';
         $('#add-fuel-title').html('<i class="fa fa-beer"></i> Agregar Registro de Combustbile');
         $('#btn-insert-fuel-entry').show();
         $('#btn-update-fuel-entry').hide();
@@ -397,9 +410,10 @@
         $.post('includes/insertFuelEntry.php', 'fuelPurchase=' + fuelpurchase + '&fuelOdometer=' + fuelodometer + '&fuelType=' + fueltype + '&fuelPrice=' + fuelpricestring + '&fuelAmount=' + fuelamountstring + '&fuelDate=' + fueldate + '&fuelTime=' + fueltime + '&fuelPlace=' + fuelplace + '&vehicleId=' + vehicleid, function (response) {
             console.log('check3');
             if (response == "Success!"){
-              alert("listo el insert");
+              //alert("listo el insert");
+              fuelSection();
               //$('#completeLinkFuelSection').click();
-              //$('#add-fuel-modal').modal('hide');
+              $('#add-fuel-modal').modal('hide');
             }
             else {
               console.log(response);
@@ -413,10 +427,10 @@
         
       }
       //Update Fuel Entry
-      $('#btn-update-fuel-entry').click(function(e){
-        e.preventDefault();
-        updateFuelEntryAction();
-      })
+      //$('#btn-update-fuel-entry').click(function(e){
+        //e.preventDefault();
+        
+      //)
 
       function updateFuelEntryModal(id, purchase, odometer, type, price, amount, purchasedate, purchasetime, place) {
         fuelentryid = id;
@@ -456,6 +470,7 @@
         $('#dashboardfuelslidenumber').hide();
         $('#btn-insert-fuel-entry').hide();
         $('#btn-update-fuel-entry').show();
+        flagform = 'fuelentryupdate';
         //$('#dashboardfuelslidenumber').text(slidenumber+" de "+totalslides);
       }
 
@@ -468,11 +483,12 @@
             console.log('check3');
             if (response == "Success!"){
               console.log(response)
-              alert("listo el update");
+              //alert("listo el update");
               //$('#completeLinkFuelSection').click();
               //window.location.reload(true);
               //location.reload(true);
-              //$('#add-fuel-modal').modal('hide');
+              fuelSection();
+              $('#add-fuel-modal').modal('hide');
             }
             else {
               console.log(response);
@@ -512,9 +528,10 @@
       function deleteFuelEntryAction(vehicleid, fuelentryid){
         $.post('includes/deleteFuelEntry.php', 'vehicleId=' + vehicleid + '&fuelEntryId=' + fuelentryid, function (response) {
           if (response == "Success!"){
-            alert("listo el delete");
+            //alert("listo el delete");
+            fuelSection();
             //$('#completeLinkFuelSection').click();
-            //$('#add-fuel-modal').modal('hide');
+            $('#fuelmore-modal').modal('hide');
           }
           else {
             console.log(response);
@@ -528,10 +545,12 @@
 
 
       function dashboardSection () {
+         fillFuelLastEntries();
          $('#dashboardsection').show();
          $('#dashboardsectionlink').addClass('active');
       }
       function fuelSection () {
+         fillFuelTable();
          $('#fuelsection').show();
          $('#fuelsectionlink').addClass('active');
       }
@@ -604,9 +623,12 @@ $(function validateAll() {
     // in the "action" attribute of the form when valid
     submitHandler: function(form) {
       //form.submit();
-      event.preventDefault();
-      insertFuelEntryAction();
-      console.log('check1');
+      if (flagform == 'fuelentryinsert'){
+        insertFuelEntryAction();  
+      }
+      if (flagform == 'fuelentryupdate'){
+        updateFuelEntryAction();  
+      }
     }
   });
 });

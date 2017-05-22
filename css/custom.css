@@ -25,6 +25,8 @@ select, input[type="color" i][list] {
   text-align-last:center;
 }
 
+.canvasjs-chart-credit {display: none !important;}
+
 #actionbutton {
   font-size: 28px !important;
   bottom: 25px;

@@ -148,8 +148,7 @@
                                     </ul>
                                 </li>
                                 <li><a class="dropdown-item linkinputfuel" href="#" data-toggle="modal" data-target="#add-fuel-modal"> <i class="fa fa-plus icon"></i> Combustible </a></li>
-                                <a href="http://localhost:8888/#fuel" id="completeLinkFuelSection" style="display: block;"> Link a Combustible</a>
-                                <!--
+                                <!--<a href="http://localhost:8888/#fuel" id="completeLinkFuelSection" style="display: block;"> Link a Combustible</a>
                                 <li>
                                     <a href=""> <i class="fa fa-cog"></i> Mantenimiento <i class="fa arrow"></i> </a>
                                     <ul>
@@ -382,22 +381,25 @@
                                 <div class="card sameheight-item" data-exclude="xs">
                                     <div class="card-header card-header-sm bordered">
                                         <div class="header-block">
-                                            <h3 class="title">History</h3>
+                                            <h3 class="title">Curvas de Rendimiento</h3>
                                         </div>
                                         <ul class="nav nav-tabs pull-right" role="tablist">
-                                            <li class="nav-item"> <a class="nav-link active" href="#visits" role="tab" data-toggle="tab">Visits</a> </li>
-                                            <li class="nav-item"> <a class="nav-link" href="#downloads" role="tab" data-toggle="tab">Downloads</a> </li>
+                                            <li class="nav-item"> <a class="nav-link active" href="#lastYearPerformance" role="tab" data-toggle="tab">Último Año</a> </li>
+                                            <li class="nav-item"> <a class="nav-link" href="#overallPerformance" role="tab" data-toggle="tab"> General </a> </li>
                                         </ul>
                                     </div>
                                     <div class="card-block">
                                         <div class="tab-content">
-                                            <div role="tabpanel" class="tab-pane active fade in" id="visits">
-                                                <p class="title-description"> Number of unique visits last 30 days </p>
-                                                <div id="dashboard-visits-chart"></div>
+                                            <div role="tabpanel" class="tab-pane active fade in" id="lastYearPerformance">
+                                                <!--<p class="title-description"> Number of downloads last 30 days </p>
+                                                <div id="dashboard-downloads-chart"></div>-->
+                                                <div id="lastYearPerformanceChart" style="width: 100%; min-height: 300px;"></div>
                                             </div>
-                                            <div role="tabpanel" class="tab-pane fade" id="downloads">
-                                                <p class="title-description"> Number of downloads last 30 days </p>
-                                                <div id="dashboard-downloads-chart"></div>
+                                            <div role="tabpanel" class="tab-pane fade in" id="overallPerformance">
+                                            <h3>asdas</h3>
+                                                <!--<p class="title-description"> Number of downloads last 30 days </p>
+                                                <div id="dashboard-downloads-chart"></div>-->
+                                                <!--<div id="lastYearPerformanceChartx" style="width: 100%; min-height: 300px;"></div>-->
                                             </div>
                                         </div>
                                     </div>
@@ -1400,11 +1402,46 @@
         <script src="js/footable.js"></script>
         <script src="js/mask.js"></script>
         <script src="js/datepicker.js"></script>
+        <script src="js/jquery.canvasjs.min.js"></script>
         <script src="js/custom.js"></script>
         <script type="text/javascript">
             jQuery(function($){
                 
         });
+        </script>
+        <script type="text/javascript">
+        window.onload = function () {
+        var chart1 = new CanvasJS.Chart("lastYearPerformanceChart",
+        {
+          title: {
+            text: "Kilómetros por Galón"
+          },
+            data: [
+          {
+            type: "spline",
+            color: "#85CE36",
+            dataPoints: [//array
+
+            { x: new Date(2017, 00, 1), y: 2600 },
+            { x: new Date(2017, 01, 12), y: 3800 },
+            { x: new Date(2017, 02, 1), y: 4300 },
+            { x: new Date(2017, 03, 1), y: 2900 },
+            { x: new Date(2017, 04, 1), y: 4100 },
+            { x: new Date(2017, 05, 1), y: 4500 },
+            { x: new Date(2017, 06, 1), y: 8600 },
+            { x: new Date(2017, 07, 1), y: 6400 },
+            { x: new Date(2017, 08, 1), y: 5300 },
+            { x: new Date(2017, 09, 1), y: 6000 },
+            { x: new Date(2017, 10, 1), y: 7000 },
+            { x: new Date(2017, 11, 1), y: 4000 },
+            { x: new Date(2017, 12, 1), y: 7000 }
+            ]
+          }
+          ]
+        });
+
+        chart1.render();
+        }
         </script>
     </body>
 

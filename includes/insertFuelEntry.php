@@ -3,10 +3,10 @@ $servername = "localhost";
 $username = "root";
 $password = "root";
 $dbname = "System";
-$dt = new DateTime($utc);
-$tz = new DateTimeZone('America/Bogota');
-$dt->setTimezone($tz);
-$FechaReserva = $dt->format('Y-m-d H:i:s');
+//$dt = new DateTime($utc);
+//$tz = new DateTimeZone('America/Bogota');
+//$dt->setTimezone($tz);
+//$FechaReserva = $dt->format('Y-m-d H:i:s');
 //Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
