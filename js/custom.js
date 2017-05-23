@@ -16,6 +16,7 @@
       var fueltime = "";
       var fuelplace = "";
       var flagform = "";
+      var lastEntriesPerformanceArray = [];
 
 
 
@@ -220,6 +221,7 @@
         $("#lastfuelentriesloading").fadeOut(500);
         setTimeout(function(){$(".fueltable").html(response).fadeIn('slow')},500)
       });
+      drawDashboardLastFuelEntriesPerformanceChart();
 
       function lastfuelentriesmodal(purchase, odometer, fueltype, fuelprice, fuelamount, purchasedate, purchasetime, place, slidenumber, totalslides) {
         $('#lastfuelentriespurchase').text('$'+purchase);
@@ -542,7 +544,57 @@
           }
       });
       }
+      
+      function drawDashboardLastFuelEntriesPerformanceChart () {
+        //window.onload = function () {
+          $.post('includes/getLastFuelEntriesChartData.php', function (response) {
+          lastEntriesPerformanceArray = jQuery.parseJSON(response);
+          //if (response == "Success!"){
+            //alert("listo el delete");
+            //fuelSection();
+            //$('#completeLinkFuelSection').click();
+            //$('#fuelmore-modal').modal('hide');
+          //}
+          //else {
+            console.log(response);
+            //$('#popupSimuladorReserva').hide();
+            //$('#outputError').html(response);
+            //$('#errorModal').modal();
+            //$('#errorModal').show();
+          //}
+        });
+        /*var lastEntriesPerformanceArray = [//array
 
+            { x: new Date(2017, 00, 1), y: 26 },
+            { x: new Date(2017, 01, 2), y: 38 },
+            { x: new Date(2017, 01, 26), y: 43 },
+            { x: new Date(2017, 02, 4), y: 29 },
+            { x: new Date(2017, 04, 1), y: 41 },
+            { x: new Date(2017, 05, 1), y: 45 },
+            { x: new Date(2017, 06, 1), y: 86 },
+            { x: new Date(2017, 07, 1), y: 64 }//,
+            //{ x: new Date(2017, 08, 1), y: 53 },
+            //{ x: new Date(2017, 09, 1), y: 60 },
+            //{ x: new Date(2017, 10, 1), y: 70 },
+            //{ x: new Date(2017, 11, 1), y: 40 }
+            ];*/
+        var chart1 = new CanvasJS.Chart("lastEntriesPerformanceChart",
+        {
+          title: {
+            text: "Kilómetros por Galón"
+          },
+            data: [
+          {
+            type: "spline",
+            color: "#85CE36",
+            dataPoints: lastEntriesPerformanceArray
+          }
+          ]
+        });
+
+        chart1.render();
+        //}
+      }
 
       function dashboardSection () {
          fillFuelLastEntries();
