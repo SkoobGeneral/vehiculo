@@ -21,9 +21,10 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
+        $Date = ($row["PurchaseDate"]);
         $OdometerThousandsDotless = str_replace('.','',$row["Odometer"]);
         $FuelAmountThousandsCommaless = str_replace(',','.',$row["FuelAmount"]);
-        //$DataArray[] = '{ x: new Date(2017,0,1), y: '.$OdometerThousandsDotless/$FuelAmountThousandsCommaless.'}';
+        $DataArray[] = array('Date' => $Date, 'Odometer' => $OdometerThousandsDotless, 'FuelAmount' => $FuelAmountThousandsCommaless);
         //$DataArray([$OdometerThousandsDotless], [$FuelAmountThousandsCommaless]);
         //$TotalSlides = $result->num_rows;
     }

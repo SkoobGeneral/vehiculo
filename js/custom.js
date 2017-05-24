@@ -397,7 +397,7 @@
 
       $('.linkinputfuel').click(function(e){
         clearFuelForm();
-        flag = 'fuelentryinsert';
+        flagform = 'fuelentryinsert';
         $('#add-fuel-title').html('<i class="fa fa-beer"></i> Agregar Registro de Combustbile');
         $('#btn-insert-fuel-entry').show();
         $('#btn-update-fuel-entry').hide();
@@ -556,7 +556,7 @@
             //$('#fuelmore-modal').modal('hide');
           //}
           //else {
-            console.log(response);
+            console.log(lastEntriesPerformanceArray);
             //$('#popupSimuladorReserva').hide();
             //$('#outputError').html(response);
             //$('#errorModal').modal();
@@ -572,11 +572,23 @@
             { x: new Date(2017, 04, 1), y: 41 },
             { x: new Date(2017, 05, 1), y: 45 },
             { x: new Date(2017, 06, 1), y: 86 },
-            { x: new Date(2017, 07, 1), y: 64 }//,
-            //{ x: new Date(2017, 08, 1), y: 53 },
-            //{ x: new Date(2017, 09, 1), y: 60 },
-            //{ x: new Date(2017, 10, 1), y: 70 },
-            //{ x: new Date(2017, 11, 1), y: 40 }
+            { x: new Date(2017, 07, 1), y: 64 },
+            { x: new Date(2017, 08, 1), y: 53 },
+            { x: new Date(2017, 09, 1), y: 60 },
+            { x: new Date(2017, 10, 1), y: 70 },
+            { x: new Date(2017, 11, 1), y: 40 },
+            { x: new Date(2018, 00, 1), y: 26 },
+            { x: new Date(2018, 01, 2), y: 38 },
+            { x: new Date(2018, 01, 26), y: 43 },
+            { x: new Date(2018, 02, 4), y: 29 },
+            { x: new Date(2018, 04, 1), y: 41 },
+            { x: new Date(2018, 05, 1), y: 45 },
+            { x: new Date(2018, 06, 1), y: 86 },
+            { x: new Date(2018, 07, 1), y: 64 },
+            { x: new Date(2018, 08, 1), y: 53 },
+            { x: new Date(2018, 09, 1), y: 60 },
+            { x: new Date(2018, 10, 1), y: 70 },
+            { x: new Date(2018, 11, 1), y: 40 }
             ];*/
         var chart1 = new CanvasJS.Chart("lastEntriesPerformanceChart",
         {
@@ -676,7 +688,7 @@ $(function validateAll() {
     submitHandler: function(form) {
       //form.submit();
       if (flagform == 'fuelentryinsert'){
-        insertFuelEntryAction();  
+        insertFuelEntryAction();
       }
       if (flagform == 'fuelentryupdate'){
         updateFuelEntryAction();  
