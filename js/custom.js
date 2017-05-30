@@ -17,6 +17,7 @@
       var fuelplace = "";
       var flagform = "";
       var lastEntriesPerformanceArray = [];
+      var performanceArrayData = [];
 
 
 
@@ -405,15 +406,14 @@
 
       //Insert Fuel Entry
       function insertFuelEntryAction(){
-        console.log('check2');
         //event.preventDefault();
         fuelamountstring = fuelamount.toLocaleString('de-DE');
         fuelpricestring = fuelprice.toLocaleString('de-DE');
         $.post('includes/insertFuelEntry.php', 'fuelPurchase=' + fuelpurchase + '&fuelOdometer=' + fuelodometer + '&fuelType=' + fueltype + '&fuelPrice=' + fuelpricestring + '&fuelAmount=' + fuelamountstring + '&fuelDate=' + fueldate + '&fuelTime=' + fueltime + '&fuelPlace=' + fuelplace + '&vehicleId=' + vehicleid, function (response) {
-            console.log('check3');
             if (response == "Success!"){
               //alert("listo el insert");
-              fuelSection();
+              $('.section').hide(); $('#sidebar-menu li').removeClass('active'); fuelSection(); $('#sidebar-overlay').click();
+              //fuelSection();
               //$('#completeLinkFuelSection').click();
               $('#add-fuel-modal').modal('hide');
             }
@@ -424,7 +424,6 @@
               //$('#errorModal').modal();
               //$('#errorModal').show();
             }
-            console.log('check4');
         });
         
       }
@@ -477,12 +476,10 @@
       }
 
       function updateFuelEntryAction(){
-        console.log('check2');
         //event.preventDefault();
         fuelamountstring = fuelamount.toLocaleString('de-DE');
         fuelpricestring = fuelprice.toLocaleString('de-DE');
         $.post('includes/updateFuelEntry.php', 'fuelPurchase=' + fuelpurchase + '&fuelOdometer=' + fuelodometer + '&fuelType=' + fueltype + '&fuelPrice=' + fuelpricestring + '&fuelAmount=' + fuelamountstring + '&fuelDate=' + fueldate + '&fuelTime=' + fueltime + '&fuelPlace=' + fuelplace + '&vehicleId=' + vehicleid + '&fuelEntryId=' + fuelentryid, function (response) {
-            console.log('check3');
             if (response == "Success!"){
               console.log(response)
               //alert("listo el update");
@@ -499,7 +496,6 @@
               //$('#errorModal').modal();
               //$('#errorModal').show();
             }
-            console.log('check4');
         });
         
       }
@@ -556,14 +552,33 @@
             //$('#fuelmore-modal').modal('hide');
           //}
           //else {
-            console.log(lastEntriesPerformanceArray);
+            var tempData = {};
+            var tempFuelAmount = 0;
+            if (lastEntriesPerformanceArray.length >=2){
+              for (var i = 0; i < (lastEntriesPerformanceArray.length - 1); i++) {
+                tempFuelAmount = 0;
+                for (var j = 0; j <= i; j++) {
+                  tempFuelAmount += Number(lastEntriesPerformanceArray[j].FuelAmount);
+                }
+                //console.log(tempFuelAmount);
+
+                tempData = (lastEntriesPerformanceArray[i+1].Odometer - lastEntriesPerformanceArray[0].Odometer)/tempFuelAmount;
+                tempArr = {x : new Date(lastEntriesPerformanceArray[i].Date),y: Math.round( tempData * 10 ) / 10};
+                performanceArrayData.push(tempArr); 
+              }
+            }
+            else {
+              console.log("Se necesitan más de 2 registros para el cálculo...!!!");
+            }
+            
+            //console.log(performanceArrayData);
             //$('#popupSimuladorReserva').hide();
             //$('#outputError').html(response);
             //$('#errorModal').modal();
             //$('#errorModal').show();
           //}
         });
-        /*var lastEntriesPerformanceArray = [//array
+        /*test = [//array
 
             { x: new Date(2017, 00, 1), y: 26 },
             { x: new Date(2017, 01, 2), y: 38 },
@@ -599,12 +614,12 @@
           {
             type: "spline",
             color: "#85CE36",
-            dataPoints: lastEntriesPerformanceArray
+            dataPoints: performanceArrayData
           }
           ]
         });
 
-        chart1.render();
+        setTimeout(function(){chart1.render();},1);
         //}
       }
 

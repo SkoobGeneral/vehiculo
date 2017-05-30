@@ -35,7 +35,7 @@ $sql = "UPDATE TBL_Fuel SET Odometer = '$FuelOdometer', FuelType = '$FuelType', 
 
 
 $result = $conn->query($sql);
-if ($conn->query($sql) === TRUE) {
+if ($result === TRUE) {
     echo "Success!";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;

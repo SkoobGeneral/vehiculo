@@ -34,7 +34,8 @@ $sql = "INSERT INTO TBL_Fuel (FK_VehicleId, Odometer, FuelType, FuelPrice, FuelA
 
 
 $result = $conn->query($sql);
-if ($conn->query($sql) === TRUE) {
+//if ($conn->query($sql) === TRUE) {
+if ($result === TRUE) {
     echo "Success!";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
