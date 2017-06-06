@@ -416,6 +416,7 @@
               //fuelSection();
               //$('#completeLinkFuelSection').click();
               $('#add-fuel-modal').modal('hide');
+              drawDashboardLastFuelEntriesPerformanceChart();
             }
             else {
               console.log(response);
@@ -488,6 +489,7 @@
               //location.reload(true);
               fuelSection();
               $('#add-fuel-modal').modal('hide');
+              drawDashboardLastFuelEntriesPerformanceChart();
             }
             else {
               console.log(response);
@@ -530,6 +532,7 @@
             fuelSection();
             //$('#completeLinkFuelSection').click();
             $('#fuelmore-modal').modal('hide');
+            drawDashboardLastFuelEntriesPerformanceChart();
           }
           else {
             console.log(response);
@@ -552,6 +555,7 @@
             //$('#fuelmore-modal').modal('hide');
           //}
           //else {
+            $('#overallPerformanceNumber').text(response);
             var tempData = {};
             var tempFuelAmount = 0;
             if (lastEntriesPerformanceArray.length >=2){
@@ -568,6 +572,7 @@
               }
             }
             else {
+              $('#lastEntriesPerformanceChart').text('Ingrese al menos 2 registros para el cálculo.');
               console.log("Se necesitan más de 2 registros para el cálculo...!!!");
             }
             
